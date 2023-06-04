@@ -106,7 +106,7 @@ const useStore = create<RFState>((set, get, store) => ({
       edges: addEdge(connection, get().edges),
     });
   },
-  allowTargetConnection: (id: string) => {
+  allowSourceConnection: (id: string) => {
     const edges = get().edges;
 
     const isAlreadyConnected = edges.some((e) => {
@@ -123,7 +123,7 @@ const useStore = create<RFState>((set, get, store) => ({
 
     return !isAlreadyConnected;
   },
-  allowSourceConnection: (id: string) => {
+  allowTargetConnection: (id: string) => {
     const edges = get().edges;
 
     const isAlreadyConnected = edges.some((e) => {

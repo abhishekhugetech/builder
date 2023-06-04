@@ -7,25 +7,15 @@ import { Image } from "lucide-react";
 import useStore from "../store";
 
 const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
-  const getTargetConnectionAllow = useStore(
-    (state) => state.allowTargetConnection
-  );
   const getSourceConnectionAllowed = useStore(
     (state) => state.allowSourceConnection
   );
 
-  const allowTargetConnection = getTargetConnectionAllow(id);
   const allowSourceConnection = getSourceConnectionAllowed(id);
 
   return (
     <>
-      <Handle
-        type="target"
-        isConnectable={allowSourceConnection}
-        isConnectableStart={allowSourceConnection}
-        position={Position.Left}
-        id="target"
-      />
+      <Handle type="target" position={Position.Left} id="target" />
       <div
         css={css(
           css`
@@ -76,8 +66,8 @@ const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
       </div>
       <Handle
         type="source"
-        isConnectable={allowTargetConnection}
-        isConnectableStart={allowTargetConnection}
+        isConnectable={allowSourceConnection}
+        isConnectableStart={allowSourceConnection}
         position={Position.Right}
         id="source"
       />

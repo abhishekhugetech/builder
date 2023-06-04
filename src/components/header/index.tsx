@@ -14,6 +14,19 @@ const Header = () => {
 
   const onSave = useCallback(() => {
     setSaving(true);
+
+    // check edges if there are more than one node with no target throw error
+    const nodesWithNoTarget = nodes.filter((node) => {
+      const nodeEdges = edges.filter((edge) => edge.source === node.id);
+      return nodeEdges.length === 0;
+    });
+
+    if (nodesWithNoTarget.length > 1) {
+      alert("There are more than one node with no target");
+      setSaving(false);
+      return;
+    }
+
     window.localStorage.setItem("nodes", JSON.stringify(nodes));
     window.localStorage.setItem("edges", JSON.stringify(edges));
     setSaving(false);

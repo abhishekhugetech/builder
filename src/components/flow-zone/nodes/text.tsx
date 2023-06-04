@@ -6,25 +6,15 @@ import { TextNodeData } from "./typings";
 import useStore from "../store";
 
 const TextNode: FC<NodeProps<TextNodeData>> = ({ id, data, selected }) => {
-  const getTargetConnectionAllow = useStore(
-    (state) => state.allowTargetConnection
-  );
-  const getSourceConnectionAllowed = useStore(
+  const getSourceConnectionAllow = useStore(
     (state) => state.allowSourceConnection
   );
 
-  const allowTargetConnection = getTargetConnectionAllow(id);
-  const allowSourceConnection = getSourceConnectionAllowed(id);
+  const allowSourceConnection = getSourceConnectionAllow(id);
 
   return (
     <>
-      <Handle
-        type="target"
-        isConnectable={allowSourceConnection}
-        isConnectableStart={allowSourceConnection}
-        position={Position.Left}
-        id="target"
-      />
+      <Handle type="target" position={Position.Left} id="target" />
       <div
         css={css(
           css`
@@ -64,8 +54,8 @@ const TextNode: FC<NodeProps<TextNodeData>> = ({ id, data, selected }) => {
       </div>
       <Handle
         type="source"
-        isConnectable={allowTargetConnection}
-        isConnectableStart={allowTargetConnection}
+        isConnectable={allowSourceConnection}
+        isConnectableStart={allowSourceConnection}
         position={Position.Right}
         id="source"
       />
