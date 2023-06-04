@@ -5,10 +5,11 @@ const Header = () => {
   return (
     <div
       css={css`
-        padding: 12px 18px;
+        padding: 16px 28px;
         background: aliceblue;
         display: flex;
         align-items: center;
+        font-weight: 500;
         justify-content: space-between;
         border-bottom: 2px solid lightblue;
       `}

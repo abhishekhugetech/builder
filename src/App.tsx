@@ -2,6 +2,8 @@ import { css, Global } from "@emotion/react";
 import FlowZone from "./components/flow-zone";
 import Sidebar, { NodeTypes } from "./components/sidebar";
 import Header from "./components/header";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Styles = () => (
   <Global
@@ -70,12 +72,12 @@ const Styles = () => (
 function App() {
   const nodes = [
     {
-      id: "textMessage",
+      id: NodeTypes.Text,
       label: "Text Message",
       type: NodeTypes.Text,
     },
     {
-      id: "imageMessage",
+      id: NodeTypes.Image,
       label: "Image Message",
       type: NodeTypes.Image,
     },
@@ -93,17 +95,19 @@ function App() {
         `}
       >
         <Header />
-        <div
-          css={css`
-            display: grid;
-            grid-template-columns: 3fr 1fr;
-            grid-auto-rows: 1fr;
-            flex: 1;
-          `}
-        >
-          <FlowZone />
-          <Sidebar nodes={nodes} />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div
+            css={css`
+              display: grid;
+              grid-template-columns: 3fr 1fr;
+              grid-auto-rows: 1fr;
+              flex: 1;
+            `}
+          >
+            <FlowZone />
+            <Sidebar nodes={nodes} />
+          </div>
+        </DndProvider>
       </div>
     </>
   );

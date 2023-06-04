@@ -1,6 +1,7 @@
 import { css } from "@emotion/react";
 import { FC } from "react";
 import { FileImage, FileText } from "lucide-react";
+import { useDrag } from "react-dnd";
 
 interface NodeTypeProps {
   id: string;
@@ -19,30 +20,47 @@ const iconsMap = {
 };
 
 const NodeTypeRenderer: FC<NodeTypeProps> = ({ id, type, label }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: "node",
+    item: { id, type, label },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
+
   return (
     <div
       id={id}
-      css={css`
-        padding: 32px 28px;
-        text-align: center;
-        border-radius: 4px;
-        border: 1px solid lightblue;
+      ref={drag}
+      css={css(
+        css`
+          padding: 32px 24px;
+          text-align: center;
+          border-radius: 4px;
+          border: 1px solid lightblue;
 
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
 
-        &:hover {
-          cursor: pointer;
-          background: repeating-linear-gradient(
-            135deg,
-            #add8e610,
-            #add8e630 5px,
-            white 5px,
-            white 10px
-          );
-        }
-      `}
+          &:hover {
+            cursor: pointer;
+            background: repeating-linear-gradient(
+              135deg,
+              #add8e610,
+              #add8e630 5px,
+              white 5px,
+              white 10px
+            );
+          }
+        `,
+        isDragging &&
+          css`
+            opacity: 0.5;
+            cursor: grabbing;
+          `
+      )}
     >
       {iconsMap[type]}
       <p
@@ -69,8 +87,9 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
     >
       <div
         css={css`
-          padding: 12px 18px;
+          padding: 16px 28px;
           border-bottom: 1px solid lightblue;
+          font-weight: 500;
         `}
       >
         Nodes
@@ -79,12 +98,12 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
         css={css`
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 32px;
-          padding: 24px 32px;
+          gap: 28px;
+          padding: 24px 28px;
         `}
       >
         {nodes.map((node) => (
-          <NodeTypeRenderer {...node} />
+          <NodeTypeRenderer key={node.id} {...node} />
         ))}
       </div>
     </div>
