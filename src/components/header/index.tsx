@@ -12,9 +12,9 @@ const Header = () => {
 
   const onSave = useCallback(() => {
     setSaving(true);
-    setTimeout(() => {
-      setSaving(false);
-    }, 2000);
+    window.localStorage.setItem("nodes", JSON.stringify(nodes));
+    window.localStorage.setItem("edges", JSON.stringify(edges));
+    setSaving(false);
   }, [nodes, edges]);
 
   return (

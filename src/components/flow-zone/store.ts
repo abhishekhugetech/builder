@@ -14,7 +14,7 @@ import {
 import { DropTargetMonitor } from "react-dnd";
 import { NodeData, NodeTypes } from "./nodes/typings";
 
-const initialNodes: Node<any, NodeTypes>[] = [
+const initialDummyNodes: Node<any, NodeTypes>[] = [
   {
     id: "1",
     position: { x: 100, y: 100 },
@@ -46,7 +46,7 @@ export const dummyNode = {
   },
 };
 
-const initialEdges: Edge[] = [{ id: "e1-2", source: "1", target: "2" }];
+const initialDummyEdges: Edge[] = [{ id: "e1-2", source: "1", target: "2" }];
 
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: true,
@@ -73,6 +73,12 @@ type RFState = {
   }) => void;
   defaultEdgeOptions: DefaultEdgeOptions;
 };
+
+const storedNodes = window.localStorage.getItem("nodes");
+const storedEdges = window.localStorage.getItem("edges");
+
+const initialNodes = storedNodes ? JSON.parse(storedNodes) : initialDummyNodes;
+const initialEdges = storedEdges ? JSON.parse(storedEdges) : initialDummyEdges;
 
 // this is our useStore hook that we can use in our components to get parts of the store and call actions
 const useStore = create<RFState>((set, get, store) => ({
