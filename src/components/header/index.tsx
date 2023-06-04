@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
 import Button from "../../shared/components/button";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import useStore from "../flow-zone/store";
 
 const Header = () => {
@@ -10,12 +10,23 @@ const Header = () => {
     edges: state.edges,
   }));
 
+  const [saved, setSaved] = useState(false);
+
   const onSave = useCallback(() => {
     setSaving(true);
     window.localStorage.setItem("nodes", JSON.stringify(nodes));
     window.localStorage.setItem("edges", JSON.stringify(edges));
     setSaving(false);
+    setSaved(true);
   }, [nodes, edges]);
+
+  useEffect(() => {
+    if (saved) {
+      setTimeout(() => {
+        setSaved(false);
+      }, 1000);
+    }
+  }, [saved]);
 
   return (
     <div
@@ -30,9 +41,8 @@ const Header = () => {
       `}
     >
       <p>React Flow Demo</p>
-
       <Button loading={saving} onClick={onSave}>
-        Save
+        {saved ? "Saved" : "Save"}
       </Button>
     </div>
   );
