@@ -1,9 +1,11 @@
 import { css, Global } from "@emotion/react";
 import FlowZone from "./components/flow-zone";
-import Sidebar, { NodeTypes } from "./components/sidebar";
+import Sidebar from "./components/sidebar";
 import Header from "./components/header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { ReactFlowProvider } from "reactflow";
+import { NodeTypes } from "./components/flow-zone/nodes/typings";
 
 const Styles = () => (
   <Global
@@ -96,17 +98,19 @@ function App() {
       >
         <Header />
         <DndProvider backend={HTML5Backend}>
-          <div
-            css={css`
-              display: grid;
-              grid-template-columns: 3fr 1fr;
-              grid-auto-rows: 1fr;
-              flex: 1;
-            `}
-          >
-            <FlowZone />
-            <Sidebar nodes={nodes} />
-          </div>
+          <ReactFlowProvider>
+            <div
+              css={css`
+                display: grid;
+                grid-template-columns: 3fr 1fr;
+                grid-auto-rows: 1fr;
+                flex: 1;
+              `}
+            >
+              <FlowZone />
+              <Sidebar nodes={nodes} />
+            </div>
+          </ReactFlowProvider>
         </DndProvider>
       </div>
     </>
