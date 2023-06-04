@@ -30,6 +30,7 @@ const FlowZone = () => {
     edges,
     onConnect,
     addNode,
+    setSelectedNodes,
   } = useStore(selector, shallow);
 
   const [, dropRef] = useDrop({
@@ -47,6 +48,9 @@ const FlowZone = () => {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
+        onNodesDelete={() => {
+          setSelectedNodes([]);
+        }}
         nodeTypes={nodeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
       >

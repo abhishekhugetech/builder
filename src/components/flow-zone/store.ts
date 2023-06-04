@@ -12,7 +12,7 @@ import {
 } from "reactflow";
 
 import { DropTargetMonitor } from "react-dnd";
-import { NodeData, NodeTypes } from "./nodes/typings";
+import { NodeData, Nodes, NodeTypes } from "./nodes/typings";
 
 const initialDummyNodes: Node<any, NodeTypes>[] = [
   {
@@ -55,6 +55,7 @@ const defaultEdgeOptions: DefaultEdgeOptions = {
 type RFState = {
   nodes: Node<NodeData, NodeTypes>[];
   edges: Edge[];
+  selectedNodes: Array<Nodes>;
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
@@ -73,6 +74,8 @@ type RFState = {
     data?: NodeData;
     selected?: boolean;
   }) => void;
+  setSelectedNodes: (nodes: Array<Nodes>) => void;
+  deselectNodes: (id?: string) => void;
   defaultEdgeOptions: DefaultEdgeOptions;
 };
 
@@ -86,6 +89,7 @@ const initialEdges = storedEdges ? JSON.parse(storedEdges) : initialDummyEdges;
 const useStore = create<RFState>((set, get, store) => ({
   nodes: initialNodes,
   edges: initialEdges,
+  selectedNodes: [],
   onNodesChange: (changes) => {
     set({
       nodes: applyNodeChanges(changes, get().nodes) as Node<
@@ -202,6 +206,39 @@ const useStore = create<RFState>((set, get, store) => ({
       edges: [...get().edges, edge],
     });
   },
+  setSelectedNodes: (nodes) => {
+    set({
+      selectedNodes: nodes,
+    });
+  },
+  deselectNodes: (id) => {
+    const state = store.getState();
+
+    if (state.selectedNodes.length === 0) return;
+
+    let finalId = id;
+
+    if (!finalId) {
+      const node = state.selectedNodes[0];
+      finalId = node.id;
+    }
+
+    const nodes = state.nodes.map((node) => {
+      if (node.id === finalId) {
+        return {
+          ...node,
+          selected: false,
+        };
+      }
+
+      return node;
+    });
+
+    set({
+      nodes: nodes as Array<Node<NodeData, NodeTypes>>,
+      selectedNodes: state.selectedNodes.filter((node) => node.id !== finalId),
+    });
+  },
   defaultEdgeOptions,
 }));
 
@@ -219,6 +256,9 @@ export const selector = (state: RFState) => ({
   changeNodeData: state.changeNodeData,
   allowTargetConnection: state.allowTargetConnection,
   allowSourceConnection: state.allowSourceConnection,
+  selectedNodes: state.selectedNodes,
+  setSelectedNodes: state.setSelectedNodes,
+  deselectNodes: state.deselectNodes,
 });
 
 export default useStore;

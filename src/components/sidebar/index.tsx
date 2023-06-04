@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useOnSelectionChange } from "reactflow";
 import NodeTypeRenderer, { NodeTypeProps } from "./nodes";
 import { Nodes } from "../flow-zone/nodes/typings";
@@ -13,11 +13,17 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ nodes }) => {
-  const [selectedNodes, setSelectedNodes] = useState<Array<Nodes>>([]);
-  const changeNodeData = useStore((state) => state.changeNodeData);
+  const { changeNodeData, deselectNodes, selectedNodes, setSelectedNodes } =
+    useStore((state) => ({
+      changeNodeData: state.changeNodeData,
+      selectedNodes: state.selectedNodes,
+      deselectNodes: state.deselectNodes,
+      setSelectedNodes: state.setSelectedNodes,
+    }));
 
   useOnSelectionChange({
     onChange: (elements) => {
+      console.log(elements);
       if (elements.nodes.length > 0) {
         setSelectedNodes(elements.nodes as Array<Nodes>);
       } else {
@@ -27,14 +33,7 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
   });
 
   const onDeselect = () => {
-    setSelectedNodes((nodes) => {
-      if (nodes.length === 0) return [];
-
-      const node = nodes[0];
-      changeNodeData({ id: node.id, selected: false });
-
-      return [];
-    });
+    deselectNodes();
   };
 
   const isSingleNodeSelected = selectedNodes.length === 1;
