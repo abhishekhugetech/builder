@@ -4,11 +4,28 @@ import { css } from "@emotion/react";
 import CustomImage from "../../../shared/components/image";
 import { ImageNodeData } from "./typings";
 import { Image } from "lucide-react";
+import useStore from "../store";
 
-const ImageNode: FC<NodeProps<ImageNodeData>> = ({ data, selected }) => {
+const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
+  const getTargetConnectionAllow = useStore(
+    (state) => state.allowTargetConnection
+  );
+  const getSourceConnectionAllowed = useStore(
+    (state) => state.allowSourceConnection
+  );
+
+  const allowTargetConnection = getTargetConnectionAllow(id);
+  const allowSourceConnection = getSourceConnectionAllowed(id);
+
   return (
     <>
-      <Handle type="target" position={Position.Left} id="target" />
+      <Handle
+        type="target"
+        isConnectable={allowSourceConnection}
+        isConnectableStart={allowSourceConnection}
+        position={Position.Left}
+        id="target"
+      />
       <div
         css={css(
           css`
@@ -57,7 +74,13 @@ const ImageNode: FC<NodeProps<ImageNodeData>> = ({ data, selected }) => {
           {data.caption && <p css={css``}>{data.caption}</p>}
         </div>
       </div>
-      <Handle type="source" position={Position.Right} id="source" />
+      <Handle
+        type="source"
+        isConnectable={allowTargetConnection}
+        isConnectableStart={allowTargetConnection}
+        position={Position.Right}
+        id="source"
+      />
     </>
   );
 };

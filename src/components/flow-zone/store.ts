@@ -58,6 +58,8 @@ type RFState = {
   onNodesChange: OnNodesChange;
   onEdgesChange: OnEdgesChange;
   onConnect: OnConnect;
+  allowTargetConnection: (id: string) => boolean;
+  allowSourceConnection: (id: string) => boolean;
   addNode: (node: Node<NodeData, NodeTypes>) => void;
   addEdge: (edge: Edge) => void;
   onDrop: (
@@ -98,9 +100,45 @@ const useStore = create<RFState>((set, get, store) => ({
     });
   },
   onConnect: (connection) => {
+    const { source, target } = connection;
+
     set({
       edges: addEdge(connection, get().edges),
     });
+  },
+  allowTargetConnection: (id: string) => {
+    const edges = get().edges;
+
+    const isAlreadyConnected = edges.some((e) => {
+      const { source, target } = e;
+
+      if (source === id && target) {
+        return true;
+      }
+
+      return false;
+    });
+
+    console.log({ isAlreadyConnected });
+
+    return !isAlreadyConnected;
+  },
+  allowSourceConnection: (id: string) => {
+    const edges = get().edges;
+
+    const isAlreadyConnected = edges.some((e) => {
+      const { source, target } = e;
+
+      if (target === id && source) {
+        return true;
+      }
+
+      return false;
+    });
+
+    console.log({ isAlreadyConnected });
+
+    return !isAlreadyConnected;
   },
   onDrop: (item, monitor) => {
     const { id, type } = item;
@@ -179,6 +217,8 @@ export const selector = (state: RFState) => ({
   defaultEdgeOptions: state.defaultEdgeOptions,
   getNode: state.getNode,
   changeNodeData: state.changeNodeData,
+  allowTargetConnection: state.allowTargetConnection,
+  allowSourceConnection: state.allowSourceConnection,
 });
 
 export default useStore;
