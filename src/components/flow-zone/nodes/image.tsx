@@ -11,6 +11,8 @@ const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
     (state) => state.allowSourceConnection
   );
 
+  // check if the node is allowed to be connected to another node
+  // not checking on target as target can have any no of connections
   const allowSourceConnection = getSourceConnectionAllowed(id);
 
   return (
@@ -24,7 +26,7 @@ const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
             border: 1px solid lightblue;
           `,
           selected &&
-            css`
+          css`
               border-color: coral;
             `
         )}

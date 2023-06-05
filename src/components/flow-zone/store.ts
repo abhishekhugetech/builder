@@ -14,7 +14,7 @@ import {
 import { DropTargetMonitor } from "react-dnd";
 import { NodeData, Nodes, NodeTypes } from "./nodes/typings";
 
-const initialDummyNodes: Node<any, NodeTypes>[] = [
+const initialDummyNodes: Node<NodeData, NodeTypes>[] = [
   {
     id: "1",
     position: { x: 100, y: 100 },
@@ -104,8 +104,6 @@ const useStore = create<RFState>((set, get, store) => ({
     });
   },
   onConnect: (connection) => {
-    const { source, target } = connection;
-
     set({
       edges: addEdge(connection, get().edges),
     });
@@ -113,6 +111,7 @@ const useStore = create<RFState>((set, get, store) => ({
   allowSourceConnection: (id: string) => {
     const edges = get().edges;
 
+    // check if there are edges with this node's id as source and have a target
     const isAlreadyConnected = edges.some((e) => {
       const { source, target } = e;
 
@@ -122,8 +121,6 @@ const useStore = create<RFState>((set, get, store) => ({
 
       return false;
     });
-
-    console.log({ isAlreadyConnected });
 
     return !isAlreadyConnected;
   },
@@ -140,8 +137,6 @@ const useStore = create<RFState>((set, get, store) => ({
       return false;
     });
 
-    console.log({ isAlreadyConnected });
-
     return !isAlreadyConnected;
   },
   onDrop: (item, monitor) => {
@@ -152,6 +147,8 @@ const useStore = create<RFState>((set, get, store) => ({
 
     const lastNode = nodes[nodes.length - 1];
 
+    // If we can get position from offset better, if not just use the last node's position
+    // to calculate the new node's position to a good enough degree
     const x = offset?.x || lastNode.position.x + 300;
     const y = offset?.y || lastNode.position.y + 400;
 
@@ -168,7 +165,7 @@ const useStore = create<RFState>((set, get, store) => ({
     return get().nodes.find((node) => node.id === id);
   },
   changeNodeData: (args) => {
-    const { id, type, data, selected } = args;
+    const { id, data, selected } = args;
 
     const state = store.getState();
     const node = state.getNode(id);
@@ -214,15 +211,18 @@ const useStore = create<RFState>((set, get, store) => ({
   deselectNodes: (id) => {
     const state = store.getState();
 
+    // if none selected, return
     if (state.selectedNodes.length === 0) return;
 
     let finalId = id;
 
+    // if no id passed, use the first selected node's id
     if (!finalId) {
       const node = state.selectedNodes[0];
       finalId = node.id;
     }
 
+    // deselect the node
     const nodes = state.nodes.map((node) => {
       if (node.id === finalId) {
         return {

@@ -4,7 +4,7 @@ import { css } from "@emotion/react";
 import useStore, { selector } from "../../../flow-zone/store";
 import { shallow } from "zustand/shallow";
 
-const TextNodeDataEditor: FC<TextNode> = ({ id, data, type }) => {
+const TextNodeDataEditor: FC<TextNode> = ({ id, type }) => {
   const { getNode, changeNodeData } = useStore(selector, shallow);
 
   const state = getNode(id);
@@ -24,7 +24,7 @@ const TextNodeDataEditor: FC<TextNode> = ({ id, data, type }) => {
         data: { ...state.data, [e.target.name]: e.target.value },
       });
     },
-    [state]
+    [state, type, changeNodeData]
   );
 
   return (

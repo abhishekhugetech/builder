@@ -29,10 +29,10 @@ const FlowZone = () => {
     onDrop,
     edges,
     onConnect,
-    addNode,
     setSelectedNodes,
   } = useStore(selector, shallow);
 
+  // drop ref for dropping nodes from node panel
   const [, dropRef] = useDrop({
     accept: "node",
     drop: (item: { id: string; type: NodeTypes }, monitor) =>

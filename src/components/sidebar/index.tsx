@@ -13,9 +13,8 @@ interface SidebarProps {
 }
 
 const Sidebar: FC<SidebarProps> = ({ nodes }) => {
-  const { changeNodeData, deselectNodes, selectedNodes, setSelectedNodes } =
+  const { deselectNodes, selectedNodes, setSelectedNodes } =
     useStore((state) => ({
-      changeNodeData: state.changeNodeData,
       selectedNodes: state.selectedNodes,
       deselectNodes: state.deselectNodes,
       setSelectedNodes: state.setSelectedNodes,
@@ -37,8 +36,11 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
   };
 
   const isSingleNodeSelected = selectedNodes.length === 1;
+
+  // There can be multiple nodes selected, but no desc was given for this as of now
   const isMultipleNodesSelected = selectedNodes.length > 1;
 
+  // Just show some dummy data for now
   if (isMultipleNodesSelected) {
     return (
       <div
@@ -66,6 +68,8 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
     );
   }
 
+  // If a single node selected, show the node editor, Editor is a self contained
+  // component, it will handle the node type and show the appropriate editor
   if (isSingleNodeSelected) {
     const selectedNode = selectedNodes[0];
 
@@ -101,15 +105,14 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
             css={css`
               margin-left: 8px;
             `}
-          >{`${
-            selectedNode.type ? labelsMap[selectedNode.type] : "Selected"
-          } Message`}</p>
+          >{labelsMap[selectedNode.type]} Message</p>
         </div>
         <NodeDataEditor node={selectedNode} />
       </div>
     );
   }
 
+  // If none selected, then we can show the Nodes panel so user can use them
   return (
     <div
       css={css`

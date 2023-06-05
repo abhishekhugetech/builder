@@ -1,4 +1,4 @@
-import { css, Global } from "@emotion/react";
+import { css } from "@emotion/react";
 import FlowZone from "./components/flow-zone";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
@@ -6,70 +6,8 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ReactFlowProvider } from "reactflow";
 import { NodeTypes } from "./components/flow-zone/nodes/typings";
+import { Styles } from "./components/styles";
 
-const Styles = () => (
-  <Global
-    styles={css`
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-      }
-
-      * {
-        margin: 0;
-      }
-
-      html,
-      body {
-        height: 100%;
-      }
-
-      body {
-        font-size: 15px;
-        font-family: "Poppins", sans-serif;
-        line-height: 1.35;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      img,
-      picture,
-      video,
-      canvas,
-      svg {
-        display: block;
-        max-width: 100%;
-      }
-
-      input,
-      button,
-      textarea,
-      select {
-        font: inherit;
-      }
-
-      p,
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        overflow-wrap: break-word;
-      }
-
-      #root,
-      #__next {
-        isolation: isolate;
-      }
-
-      #root {
-        height: 100%;
-        width: 100%;
-      }
-    `}
-  />
-);
 
 function App() {
   const nodes = [

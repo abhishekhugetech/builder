@@ -23,7 +23,7 @@ const TextNode: FC<NodeProps<TextNodeData>> = ({ id, data, selected }) => {
             border: 1px solid lightblue;
           `,
           selected &&
-            css`
+          css`
               border: 1px solid coral;
             `
         )}

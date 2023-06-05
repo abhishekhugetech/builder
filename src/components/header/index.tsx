@@ -17,16 +17,23 @@ const Header = () => {
 
     // check edges if there are more than one node with no target throw error
     const nodesWithNoTarget = nodes.filter((node) => {
+
+      // get all the edges for a node
       const nodeEdges = edges.filter((edge) => edge.source === node.id);
+
+      // if no edges with source then it has no target
       return nodeEdges.length === 0;
     });
 
+    // if there are more than one node with no target throw error
     if (nodesWithNoTarget.length > 1) {
       alert("There are more than one node with no target");
       setSaving(false);
       return;
     }
 
+    // save the data to local storage for now
+    // To save to API just put a fetch request here
     window.localStorage.setItem("nodes", JSON.stringify(nodes));
     window.localStorage.setItem("edges", JSON.stringify(edges));
     setSaving(false);

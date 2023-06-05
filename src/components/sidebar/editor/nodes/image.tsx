@@ -4,9 +4,11 @@ import { css } from "@emotion/react";
 import useStore, { selector } from "../../../flow-zone/store";
 import { shallow } from "zustand/shallow";
 
-const ImageNodeDataEditor: FC<ImageNode> = ({ type, data, id }) => {
+const ImageNodeDataEditor: FC<ImageNode> = ({ type, id }) => {
   const { getNode, changeNodeData } = useStore(selector, shallow);
 
+  // Get the node data from the store, We can also use the data from props
+  // but this seems more consistent
   const state = getNode(id);
 
   const onInputChange = useCallback(
@@ -20,7 +22,7 @@ const ImageNodeDataEditor: FC<ImageNode> = ({ type, data, id }) => {
         data: { ...state.data, [e.target.name]: e.target.value },
       });
     },
-    [state]
+    [state, type, changeNodeData]
   );
 
   const onTextAreaChange = useCallback(
@@ -34,7 +36,7 @@ const ImageNodeDataEditor: FC<ImageNode> = ({ type, data, id }) => {
         data: { ...state.data, [e.target.name]: e.target.value },
       });
     },
-    []
+    [changeNodeData, state, type]
   );
 
   return (
