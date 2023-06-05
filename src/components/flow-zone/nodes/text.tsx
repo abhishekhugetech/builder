@@ -5,12 +5,14 @@ import { MessageCircle } from "lucide-react";
 import { TextNodeData } from "./typings";
 import useStore from "../store";
 
-const TextNode: FC<NodeProps<TextNodeData>> = ({ id, data, selected }) => {
-  const getSourceConnectionAllow = useStore(
-    (state) => state.allowSourceConnection
+const TextNode: FC<NodeProps<TextNodeData>> = ({ id }) => {
+  const { getSourceConnectionAllowed, getNode } = useStore(
+    (state) => ({ getSourceConnectionAllowed: state.allowSourceConnection, getNode: state.getNode })
   );
 
-  const allowSourceConnection = getSourceConnectionAllow(id);
+  const { data, selected } = getNode(id);
+
+  const allowSourceConnection = getSourceConnectionAllowed(id);
 
   return (
     <>

@@ -6,10 +6,14 @@ import { ImageNodeData } from "./typings";
 import { Image } from "lucide-react";
 import useStore from "../store";
 
-const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id, data, selected }) => {
-  const getSourceConnectionAllowed = useStore(
-    (state) => state.allowSourceConnection
+const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id }) => {
+  const { getSourceConnectionAllowed, getNode } = useStore(
+    (state) => ({ getSourceConnectionAllowed: state.allowSourceConnection, getNode: state.getNode })
   );
+
+  const { data, selected } = getNode(id);
+
+  console.log('rerender')
 
   // check if the node is allowed to be connected to another node
   // not checking on target as target can have any no of connections
