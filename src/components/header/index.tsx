@@ -60,7 +60,7 @@ const Header = () => {
         border-bottom: 2px solid lightblue;
       `}
     >
-      <p>React Flow Demo</p>
+      <p>KYC Builder</p>
       <Button loading={saving} onClick={onSave}>
         {saved ? "Saved" : "Save"}
       </Button>

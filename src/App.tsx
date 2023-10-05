@@ -13,12 +13,17 @@ function App() {
   const nodes = [
     {
       id: NodeTypes.Text,
-      label: "Text Message",
+      label: "Digilocker",
       type: NodeTypes.Text,
     },
     {
       id: NodeTypes.Image,
-      label: "Image Message",
+      label: "Manual KYC",
+      type: NodeTypes.Image,
+    },
+    {
+      id: NodeTypes.Image,
+      label: "Selfie",
       type: NodeTypes.Image,
     },
   ];

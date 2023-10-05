@@ -126,7 +126,7 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
           font-weight: 500;
         `}
       >
-        Nodes
+        KYC Modules
       </div>
       <div
         css={css`
