@@ -126,7 +126,9 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
           font-weight: 500;
         `}
       >
-        KYC Modules
+        <h2>Customize</h2>
+        <br />
+        Customize the details and color to make the Hoodie design your own. All items automatically come with a size and care label. These are included in the price.
       </div>
       <div
         css={css`

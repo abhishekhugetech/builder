@@ -39,6 +39,18 @@ const FlowZone = () => {
       onDrop(item, monitor),
   });
 
+
+  return (
+    <div>
+    <h1>
+      Hola THere this is the element
+    </h1>
+    <h2>
+      Some other title
+    </h2>
+    </div>
+  )
+
   return (
     <div css={css``}>
       <ReactFlow
