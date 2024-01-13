@@ -39,6 +39,11 @@ const FlowZone = () => {
       onDrop(item, monitor),
   });
 
+  const some = () => {
+  const node = []
+  node.push(nodes[0]  )
+  setSelectedNodes(node)
+  }
 
   return (
     <div>
@@ -47,31 +52,14 @@ const FlowZone = () => {
     </h1>
     <h2>
       Some other title
+      <button
+      onClick={some}>
+        Click on me
+      </button>
     </h2>
     </div>
   )
 
-  return (
-    <div css={css``}>
-      <ReactFlow
-        ref={dropRef}
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        onNodesDelete={() => {
-          setSelectedNodes([]);
-        }}
-        nodeTypes={nodeTypes}
-        defaultEdgeOptions={defaultEdgeOptions}
-      >
-        <Controls />
-        <MiniMap nodeColor={"lightblue"} />
-        <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
-      </ReactFlow>
-    </div>
-  );
 };
 
 export default FlowZone;
