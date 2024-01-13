@@ -2,10 +2,10 @@ import { FC } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
 import { css } from "@emotion/react";
 import { MessageCircle } from "lucide-react";
-import { TextNodeData } from "./typings";
+import { ColorNodeData } from "./typings";
 import useStore from "../store";
 
-const TextNode: FC<NodeProps<TextNodeData>> = ({ id }) => {
+const ColorNode: FC<NodeProps<ColorNodeData>> = ({ id }) => {
   const { getSourceConnectionAllowed, getNode } = useStore(
     (state) => ({ getSourceConnectionAllowed: state.allowSourceConnection, getNode: state.getNode })
   );
@@ -65,4 +65,4 @@ const TextNode: FC<NodeProps<TextNodeData>> = ({ id }) => {
   );
 };
 
-export default TextNode;
+export default ColorNode;

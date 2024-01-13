@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, useCallback } from "react";
-import { ImageNode } from "../../../flow-zone/nodes/typings";
+import { NeckLabelNode } from "../../../flow-zone/nodes/typings";
 import { css } from "@emotion/react";
 import useStore, { selector } from "../../../flow-zone/store";
 import { shallow } from "zustand/shallow";
 
-const ImageNodeDataEditor: FC<ImageNode> = ({ type, id }) => {
+const NeckLabelNodeDataEditor: FC<NeckLabelNode> = ({ type, id }) => {
   const { getNode, changeNodeData } = useStore(selector, shallow);
 
   // Get the node data from the store, We can also use the data from props
@@ -102,4 +102,4 @@ const ImageNodeDataEditor: FC<ImageNode> = ({ type, id }) => {
   );
 };
 
-export default ImageNodeDataEditor;
+export default NeckLabelNodeDataEditor;

@@ -5,26 +5,29 @@ import Header from "./components/header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ReactFlowProvider } from "reactflow";
-import { NodeTypes } from "./components/flow-zone/nodes/typings";
+import { NodeTypes, getDefaultColorNode, getDefaultNeckLabelNode, getDefaultPrintNode } from "./components/flow-zone/nodes/typings";
 import { Styles } from "./components/styles";
 
 
 function App() {
   const nodes = [
     {
-      id: NodeTypes.Text,
-      label: "Digilocker",
-      type: NodeTypes.Text,
+      id: NodeTypes.Color,
+      label: "Color",
+      type: NodeTypes.Color,
+      data: getDefaultColorNode(),
     },
     {
-      id: NodeTypes.Image,
-      label: "Manual KYC",
-      type: NodeTypes.Image,
+      id: NodeTypes.Print,
+      label: "Print",
+      type: NodeTypes.Print,
+      data: getDefaultPrintNode(),
     },
     {
-      id: NodeTypes.Image,
-      label: "Selfie",
-      type: NodeTypes.Image,
+      id: NodeTypes.NeckLabel,
+      label: "Neck Label",
+      type: NodeTypes.NeckLabel,
+      data: getDefaultNeckLabelNode(),
     },
   ];
 

@@ -1,15 +1,21 @@
 import { NodeTypes } from "../flow-zone/nodes/typings";
 
-export interface TextNodeDataEditorState {
-  type: NodeTypes.Text;
+export interface ColorNodeDataEditorState {
+  type: NodeTypes.Color;
   data: { text: string };
 }
 
-export interface ImageNodeDataEditorState {
-  type: NodeTypes.Image;
+export interface PrintNodeDataEditorState {
+  type: NodeTypes.Print;
+  data: { url: string; caption: string };
+}
+
+export interface NeckLabelNodeDataEditorState {
+  type: NodeTypes.NeckLabel;
   data: { url: string; caption: string };
 }
 
 export type NodeDataEditorState =
-  | TextNodeDataEditorState
-  | ImageNodeDataEditorState;
+  | ColorNodeDataEditorState
+  | PrintNodeDataEditorState
+  | NeckLabelNodeDataEditorState;

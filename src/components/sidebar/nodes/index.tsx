@@ -1,16 +1,18 @@
 import { FC } from "react";
 import { useDrag } from "react-dnd";
 import { css } from "@emotion/react";
-import { NodeTypes } from "../../flow-zone/nodes/typings";
+import { NodeData, NodeTypes, Nodes } from "../../flow-zone/nodes/typings";
 import { iconsMap } from "./constants";
 
 export interface NodeTypeProps {
   id: string;
   label: string;
   type: NodeTypes;
+  data: NodeData;
 }
 
-const NodeTypeRenderer: FC<NodeTypeProps> = ({ id, type, label }) => {
+const NodeTypeRenderer: FC<NodeTypeProps> = ({ id, type, label, data  }) => {
+
   const [{ isDragging }, drag] = useDrag(() => ({
     type: "node",
     item: { id, type, label },

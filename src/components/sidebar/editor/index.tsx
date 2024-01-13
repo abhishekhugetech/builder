@@ -1,5 +1,6 @@
-import ImageNodeDataEditor from "./nodes/image";
-import TextNodeDataEditor from "./nodes/text";
+import PrintNodeDataEditor from "./nodes/print";
+import ColorNodeDataEditor from "./nodes/color";
+import NeckLabelNodeDataEditor from "./nodes/neck_label";
 import { Nodes, NodeTypes } from "../../flow-zone/nodes/typings";
 import { FC } from "react";
 
@@ -8,10 +9,12 @@ const NodeDataEditor: FC<{ node: Nodes }> = ({ node }) => {
 
   // Individual node data editors handle their own state and save it as needed
   switch (node.type) {
-    case NodeTypes.Image:
-      return <ImageNodeDataEditor {...node} />;
-    case NodeTypes.Text:
-      return <TextNodeDataEditor {...node} />;
+    case NodeTypes.Print:
+      return <PrintNodeDataEditor {...node} />;
+      case NodeTypes.Color:
+        return <ColorNodeDataEditor {...node} />;
+      case NodeTypes.NeckLabel:
+        return <NeckLabelNodeDataEditor {...node} />;
     default:
       return null;
   }

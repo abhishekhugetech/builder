@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, useCallback } from "react";
-import { TextNode } from "../../../flow-zone/nodes/typings";
+import { ColorNode } from "../../../flow-zone/nodes/typings";
 import { css } from "@emotion/react";
 import useStore, { selector } from "../../../flow-zone/store";
 import { shallow } from "zustand/shallow";
 
-const TextNodeDataEditor: FC<TextNode> = ({ id, type }) => {
+const ColorNodeDataEditor: FC<ColorNode> = ({ id, type }) => {
   const { getNode, changeNodeData } = useStore(selector, shallow);
 
   const state = getNode(id);
@@ -63,4 +63,4 @@ const TextNodeDataEditor: FC<TextNode> = ({ id, type }) => {
   );
 };
 
-export default TextNodeDataEditor;
+export default ColorNodeDataEditor;

@@ -139,7 +139,10 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
         `}
       >
         {nodes.map((node) => (
-          <NodeTypeRenderer key={node.id} {...node} />
+          <NodeTypeRenderer 
+          // setSelectedNodes={setSelectedNodes}
+          // deselectNodes={}
+          key={node.id} {...node} />
         ))}
       </div>
     </div>

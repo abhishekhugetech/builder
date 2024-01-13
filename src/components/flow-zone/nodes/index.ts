@@ -1,4 +1,4 @@
-import ImageNode from "./image";
-import TextNode from "./text";
+import PrintNode from "./print";
+import ColorNode from "./color";
 
-export { TextNode, ImageNode };
+export { ColorNode as TextNode, PrintNode as ImageNode };

@@ -17,31 +17,60 @@ import { NodeData, Nodes, NodeTypes } from "./nodes/typings";
 const initialDummyNodes: Node<NodeData, NodeTypes>[] = [
   {
     id: "1",
-    position: { x: 100, y: 100 },
-    data: { text: "text message" },
-    type: NodeTypes.Text,
+    position: {x: 0, y: 0},
+    data: {
+      title: "Color",
+      description: "Choose from our selection of in-stock colors for the fastest delivery.",
+      colors: [],
+      selectedColor: null,
+     },
+    type: NodeTypes.Color,
   },
   {
     id: "2",
-    position: { x: 420, y: 220 },
+    position: { x: 0, y: 0 },
     data: {
-      url: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/paris-jaco-marx.jpg",
-      caption: "Wanna get a free trip to Paris?",
+      title: "Print",
+      description: "Add the print of your choice. Please note that the print has to be placed in the printable area.",
+      front: null,
+      back: null,
     },
-    type: NodeTypes.Image,
+    type: NodeTypes.Print,
+  },
+  {
+    id: "2",
+    position: { x: 0, y: 0 },
+    data: {
+      title: "Neck Label",
+      description: "Add your own personalized neck label.",
+      label: null,
+    },
+    type: NodeTypes.NeckLabel,
   },
 ];
 
 export const dummyNode = {
-  [NodeTypes.Text]: {
+  [NodeTypes.Color]: {
     data: {
-      text: "Hi! I want to go to Paris!",
+      title: "Color",
+      description: "Choose from our selection of in-stock colors for the fastest delivery.",
+      colors: [],
+      selectedColor: null,
     },
   },
-  [NodeTypes.Image]: {
+  [NodeTypes.Print]: {
     data: {
-      url: "https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/paris-jaco-marx.jpg",
-      caption: "Wanna get a free trip to Paris?",
+      title: "Print",
+      description: "Add the print of your choice. Please note that the print has to be placed in the printable area.",
+      front: null,
+      back: null,
+    },
+  },
+  [NodeTypes.NeckLabel]: {
+    data: {
+      title: "Neck Label",
+      description: "Add your own personalized neck label.",
+      label: null,
     },
   },
 };

@@ -2,11 +2,11 @@ import { FC } from "react";
 import { Handle, NodeProps, Position } from "reactflow";
 import { css } from "@emotion/react";
 import CustomImage from "../../../shared/components/image";
-import { ImageNodeData } from "./typings";
+import { PrintNodeData } from "./typings";
 import { Image } from "lucide-react";
 import useStore from "../store";
 
-const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id }) => {
+const PrintNode: FC<NodeProps<PrintNodeData>> = ({ id }) => {
   const { getSourceConnectionAllowed, getNode } = useStore(
     (state) => ({ getSourceConnectionAllowed: state.allowSourceConnection, getNode: state.getNode })
   );
@@ -81,4 +81,4 @@ const ImageNode: FC<NodeProps<ImageNodeData>> = ({ id }) => {
   );
 };
 
-export default ImageNode;
+export default PrintNode;
