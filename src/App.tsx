@@ -5,29 +5,30 @@ import Header from "./components/header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ReactFlowProvider } from "reactflow";
-import { NodeTypes, getDefaultColorNode, getDefaultNeckLabelNode, getDefaultPrintNode } from "./components/flow-zone/nodes/typings";
+import { CustomizationTypes, getDefaultColorCustomization, getDefaultNeckLabelCustomization,
+   getDefaultPrintCustomization } from "./components/clothing/typings";
 import { Styles } from "./components/styles";
 
 
 function App() {
   const nodes = [
     {
-      id: NodeTypes.Color,
+      id: CustomizationTypes.Color,
       label: "Color",
-      type: NodeTypes.Color,
-      data: getDefaultColorNode(),
+      type: CustomizationTypes.Color,
+      data: getDefaultColorCustomization(),
     },
     {
-      id: NodeTypes.Print,
+      id: CustomizationTypes.Print,
       label: "Print",
-      type: NodeTypes.Print,
-      data: getDefaultPrintNode(),
+      type: CustomizationTypes.Print,
+      data: getDefaultPrintCustomization(),
     },
     {
-      id: NodeTypes.NeckLabel,
+      id: CustomizationTypes.NeckLabel,
       label: "Neck Label",
-      type: NodeTypes.NeckLabel,
-      data: getDefaultNeckLabelNode(),
+      type: CustomizationTypes.NeckLabel,
+      data: getDefaultNeckLabelCustomization(),
     },
   ];
 

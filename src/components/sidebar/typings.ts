@@ -1,21 +1,21 @@
-import { NodeTypes } from "../flow-zone/nodes/typings";
+// import { CustomizationTypes } from "../clothing/typings";
 
-export interface ColorNodeDataEditorState {
-  type: NodeTypes.Color;
-  data: { text: string };
-}
+// export interface ColorNodeDataEditorState {
+//   type: CustomizationTypes.Color;
+//   data: { text: string };
+// }
 
-export interface PrintNodeDataEditorState {
-  type: NodeTypes.Print;
-  data: { url: string; caption: string };
-}
+// export interface PrintNodeDataEditorState {
+//   type: CustomizationTypes.Print;
+//   data: { url: string; caption: string };
+// }
 
-export interface NeckLabelNodeDataEditorState {
-  type: NodeTypes.NeckLabel;
-  data: { url: string; caption: string };
-}
+// export interface NeckLabelNodeDataEditorState {
+//   type: CustomizationTypes.NeckLabel;
+//   data: { url: string; caption: string };
+// }
 
-export type NodeDataEditorState =
-  | ColorNodeDataEditorState
-  | PrintNodeDataEditorState
-  | NeckLabelNodeDataEditorState;
+// export type NodeDataEditorState =
+//   | ColorNodeDataEditorState
+//   | PrintNodeDataEditorState
+//   | NeckLabelNodeDataEditorState;

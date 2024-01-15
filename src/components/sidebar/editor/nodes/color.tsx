@@ -1,31 +1,9 @@
 import { ChangeEvent, FC, useCallback } from "react";
-import { ColorNode } from "../../../flow-zone/nodes/typings";
 import { css } from "@emotion/react";
-import useStore, { selector } from "../../../flow-zone/store";
 import { shallow } from "zustand/shallow";
+import { ColorCustomization } from "../../../clothing/typings";
 
-const ColorNodeDataEditor: FC<ColorNode> = ({ id, type }) => {
-  const { getNode, changeNodeData } = useStore(selector, shallow);
-
-  const state = getNode(id);
-
-  const onTextAreaChange = useCallback(
-    (e: ChangeEvent<HTMLTextAreaElement>) => {
-      console.log({
-        ...state,
-        type,
-        data: { ...state.data, [e.target.name]: e.target.value },
-      });
-      if (!state) return;
-
-      changeNodeData({
-        ...state,
-        type,
-        data: { ...state.data, [e.target.name]: e.target.value },
-      });
-    },
-    [state, type, changeNodeData]
-  );
+const ColorNodeDataEditor: FC<ColorCustomization> = ({ type, title, description, selectedColor }) => {
 
   return (
     <div
@@ -46,8 +24,6 @@ const ColorNodeDataEditor: FC<ColorNode> = ({ id, type }) => {
         </label>
         <textarea
           name="text"
-          value={state.data.text}
-          onChange={onTextAreaChange}
           css={css`
             margin-top: 16px;
             padding: 8px 12px;
