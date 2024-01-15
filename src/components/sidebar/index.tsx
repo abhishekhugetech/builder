@@ -12,8 +12,6 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ nodes }) => {
   const [selectedNodes, setSelectedNodes] = useState([])
-
-
   const onDeselect = () => {
     setSelectedNodes([]);
   };
@@ -92,6 +90,7 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
       >
         {nodes.map((node) => (
           <NodeTypeRenderer 
+          setSelectedNode={setSelectedNodes}
           key={node.id} {...node} />
         ))}
       </div>

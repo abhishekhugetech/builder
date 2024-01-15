@@ -6,22 +6,26 @@ export interface NodeTypeProps {
   id: string;
   type: CustomizationTypes;
   data: CustomizationData;
+  setSelectedNode?: (props : Array<NodeTypeProps>) => void
 }
 
 // NodeTypeRenderer renders the different properties on the sidebar
-const NodeTypeRenderer: FC<NodeTypeProps> = ({ id, type, data  }) => {
+const NodeTypeRenderer: FC<NodeTypeProps> = (customization) => {
   return (
     <div
-      id={id}
+      id={customization.id}
     >
       <p
         css={css`
           margin-top: 20px;
         `}
       >
-        {id}
+        {customization.id}
       </p>
-      <button>
+      <button
+      onClick={()=>{
+        customization.setSelectedNode([customization])
+      }}>
         Change
       </button>
     </div>
