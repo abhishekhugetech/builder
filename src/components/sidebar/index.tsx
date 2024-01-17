@@ -1,17 +1,17 @@
 import { css } from "@emotion/react";
 import { FC, useState } from "react";
-import { useOnSelectionChange } from "reactflow";
-import NodeTypeRenderer, { NodeTypeProps } from "./nodes";
-import NodeDataEditor from "./editor";
+import NodeListRenderer, { NodeTypeProps } from "./nodes";
+import CustomizationEditor from "./editor";
 import { ChevronLeft } from "lucide-react";
-// import useStore from "../flow-zone/store";
+import { CustomizationData } from "../clothing/typings";
 
 interface SidebarProps {
   nodes: NodeTypeProps[];
+  onCustomizationUpdated?: (customization : CustomizationData) => void
 }
 
-const Sidebar: FC<SidebarProps> = ({ nodes }) => {
-  const [selectedNodes, setSelectedNodes] = useState([])
+const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
+  const [selectedNodes, setSelectedNodes] = useState(Array<NodeTypeProps>())
   const onDeselect = () => {
     setSelectedNodes([]);
   };
@@ -55,9 +55,9 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
             css={css`
               margin-left: 8px;
             `}
-          >{selectedNode.type} Message</p>
+          >{selectedNode.data.title} Customization </p>
         </div>
-        <NodeDataEditor node={selectedNode} />
+        <CustomizationEditor data={selectedNode.data} onUpdated={onCustomizationUpdated} />
       </div>
     );
   }
@@ -89,8 +89,8 @@ const Sidebar: FC<SidebarProps> = ({ nodes }) => {
         `}
       >
         {nodes.map((node) => (
-          <NodeTypeRenderer 
-          setSelectedNode={setSelectedNodes}
+          <NodeListRenderer 
+          setCustomization={setSelectedNodes}
           key={node.id} {...node} />
         ))}
       </div>

@@ -1,9 +1,17 @@
 import { ChangeEvent, FC, useCallback } from "react";
 import { css } from "@emotion/react";
 import { PrintCustomization } from "../../../clothing/typings";
+import { CustomizationEditorProps } from "..";
 
-const PrintNodeDataEditor: FC<PrintCustomization> = ({ type, title, description, back, front }) => {
-
+const PrintNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
+  const changeMe = () => {
+    const newData = {
+      ...prop.data,
+      description: "Some print Description",
+      title: "Some Print title",
+    };
+    prop.onUpdated(newData)
+  }
   return (
     <div
       css={css`
@@ -12,6 +20,8 @@ const PrintNodeDataEditor: FC<PrintCustomization> = ({ type, title, description,
         font-weight: 500;
       `}
     >
+      <p>{prop.data.description}</p>
+      <h1 onClick={changeMe}>this is for print</h1>
       <div css={css``}>
         <label
           htmlFor="text"

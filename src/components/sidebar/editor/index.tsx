@@ -4,20 +4,25 @@ import NeckLabelNodeDataEditor from "./nodes/neck_label";
 import { CustomizationData, CustomizationTypes } from "../../clothing/typings";
 import { FC } from "react";
 
+export interface CustomizationEditorProps {
+  data: CustomizationData;
+  onUpdated?: (customization : CustomizationData) => void
+}
+
 // A component which renders the specific editor for the selected node
-const NodeDataEditor: FC<{ node: CustomizationData }> = ({ node }) => {
+const CustomizationEditor: FC<CustomizationEditorProps> = (data) => {
 
   // Individual node data editors handle their own state and save it as needed
-  switch (node.title) {
+  switch (data.data.type) {
     case CustomizationTypes.Print:
-      return <PrintNodeDataEditor {...node} />;
+      return <PrintNodeDataEditor {...data} />;
       case CustomizationTypes.Color:
-        return <ColorNodeDataEditor {...node} />;
+        return <ColorNodeDataEditor {...data} />;
       case CustomizationTypes.NeckLabel:
-        return <NeckLabelNodeDataEditor {...node} />;
+        return <NeckLabelNodeDataEditor {...data} />;
     default:
       return null;
   }
 };
 
-export default NodeDataEditor;
+export default CustomizationEditor;

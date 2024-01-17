@@ -5,13 +5,21 @@ import Header from "./components/header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ReactFlowProvider } from "reactflow";
-import { CustomizationTypes, getDefaultColorCustomization, getDefaultNeckLabelCustomization,
+import { CustomizationData, CustomizationTypes, getDefaultColorCustomization, getDefaultNeckLabelCustomization,
    getDefaultPrintCustomization } from "./components/clothing/typings";
 import { Styles } from "./components/styles";
+import { useState } from "react";
 
+
+export interface CustomizationView {
+  id: string;
+  label: string;
+  type: CustomizationTypes;
+  data: CustomizationData;
+}
 
 function App() {
-  const nodes = [
+  const nodes = Array<CustomizationView>(
     {
       id: CustomizationTypes.Color,
       label: "Color",
@@ -29,8 +37,23 @@ function App() {
       label: "Neck Label",
       type: CustomizationTypes.NeckLabel,
       data: getDefaultNeckLabelCustomization(),
-    },
-  ];
+    })
+
+    console.log(nodes);
+    
+  const  [nodeState, setNodes] = useState(nodes);
+
+
+  const onCustomizationUpdated = (customization : CustomizationData) => {
+    for (let i = 0; i < nodeState.length; i ++) {
+      const node = nodeState[i]
+      if (node.type == customization.type ) {
+        nodeState[i].data = customization
+        setNodes(nodeState)
+        break
+      }
+    }
+  }
 
   return (
     <>
@@ -55,7 +78,7 @@ function App() {
               `}
             >
               <FlowZone />
-              <Sidebar nodes={nodes} />
+              <Sidebar onCustomizationUpdated={onCustomizationUpdated} nodes={nodeState} />
             </div>
           </ReactFlowProvider>
         </DndProvider>

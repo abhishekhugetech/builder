@@ -2,8 +2,9 @@ import { ChangeEvent, FC, useCallback } from "react";
 import { css } from "@emotion/react";
 import { shallow } from "zustand/shallow";
 import { NeckLabelCustomization } from "../../../clothing/typings";
+import { CustomizationEditorProps } from "..";
 
-const NeckLabelNodeDataEditor: FC<NeckLabelCustomization> = ({ type, description, title, label }) => {
+const NeckLabelNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
   return (
     <div
       css={css`
@@ -12,6 +13,10 @@ const NeckLabelNodeDataEditor: FC<NeckLabelCustomization> = ({ type, description
         font-weight: 500;
       `}
     >
+      <p>{prop.data.description}</p>
+      <h1>this is for neck label</h1>
+      <h3
+      >{prop.data.type} is the type </h3>
       <div css={css``}>
         <label
           htmlFor="text"

@@ -2,8 +2,9 @@ import { ChangeEvent, FC, useCallback } from "react";
 import { css } from "@emotion/react";
 import { shallow } from "zustand/shallow";
 import { ColorCustomization } from "../../../clothing/typings";
+import { CustomizationEditorProps } from "..";
 
-const ColorNodeDataEditor: FC<ColorCustomization> = ({ type, title, description, selectedColor }) => {
+const ColorNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
 
   return (
     <div
@@ -13,6 +14,8 @@ const ColorNodeDataEditor: FC<ColorCustomization> = ({ type, title, description,
         font-weight: 500;
       `}
     >
+      <p>{prop.data.description}</p>
+      <h1>this is for color</h1>
       <div>
         <label
           htmlFor="text"

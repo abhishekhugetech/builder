@@ -7,7 +7,7 @@ export enum CustomizationTypes {
   
   
   export interface ColorCustomization {
-    type: string;
+    type: CustomizationTypes;
     title: string;
     description: string;
     selectedColor?: string;
@@ -24,7 +24,7 @@ export enum CustomizationTypes {
     return {
       type: CustomizationTypes.Color,
       title: "Color",
-      description: "Change color desc",
+      description: "Choose from our selection of in-stock colors for the fastest delivery.",
       colors: colors,
       selectedColor: colors[0],
     }
@@ -38,7 +38,7 @@ export enum CustomizationTypes {
   }
   
   export interface PrintCustomization {
-    type: string;
+    type: CustomizationTypes;
     title: string;
     description: string;
     front?: ClothPrint;
@@ -48,8 +48,8 @@ export enum CustomizationTypes {
   export function getDefaultPrintCustomization ()   {
     return {
       type: CustomizationTypes.Print,
-      title: "Color",
-      description: "Change color desc",
+      title: "Print",
+      description: "Add the print of your choice. Please note that the print has to be placed in the printable area.",
       front: {
     printImageFormat: "string",
     printImageURL: "string",
@@ -73,7 +73,7 @@ export enum CustomizationTypes {
   }
   
   export interface NeckLabelCustomization {
-    type: string;
+    type: CustomizationTypes;
     title: string;
     description: string;
     label?: ClothLabel
@@ -82,8 +82,8 @@ export enum CustomizationTypes {
   export function getDefaultNeckLabelCustomization ()   {
     return {
       type: CustomizationTypes.NeckLabel,
-      title: "Color",
-      description: "Change color desc",
+      title: "Neck Label",
+      description: "Add your own personalized neck label",
       label: {
         labelImageFormat: "png",
         labelImageURL: "",

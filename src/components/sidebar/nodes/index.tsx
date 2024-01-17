@@ -4,13 +4,12 @@ import { CustomizationTypes, CustomizationData } from "../../clothing/typings";
 
 export interface NodeTypeProps {
   id: string;
-  type: CustomizationTypes;
   data: CustomizationData;
-  setSelectedNode?: (props : Array<NodeTypeProps>) => void
+  setCustomization?: (customization : Array<NodeTypeProps>) => void
 }
 
 // NodeTypeRenderer renders the different properties on the sidebar
-const NodeTypeRenderer: FC<NodeTypeProps> = (customization) => {
+const NodeListRenderer: FC<NodeTypeProps> = (customization) => {
   return (
     <div
       id={customization.id}
@@ -20,11 +19,11 @@ const NodeTypeRenderer: FC<NodeTypeProps> = (customization) => {
           margin-top: 20px;
         `}
       >
-        {customization.id}
+        {customization.data.title}
       </p>
       <button
       onClick={()=>{
-        customization.setSelectedNode([customization])
+        customization.setCustomization([customization])
       }}>
         Change
       </button>
@@ -32,4 +31,4 @@ const NodeTypeRenderer: FC<NodeTypeProps> = (customization) => {
   );
 };
 
-export default NodeTypeRenderer;
+export default NodeListRenderer;
