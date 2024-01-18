@@ -19,7 +19,7 @@ const NodeListRenderer: FC<NodeTypeProps> = (customization) => {
           margin-top: 20px;
         `}
       >
-        {customization.data.title}
+        {customization.data.type}
       </p>
       <button
       onClick={()=>{

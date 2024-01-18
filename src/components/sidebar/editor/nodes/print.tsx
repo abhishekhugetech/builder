@@ -20,7 +20,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
         font-weight: 500;
       `}
     >
-      <p>{prop.data.description}</p>
+      <p>Add the print of your choice. Please note that the print has to be placed in the printable area.</p>
       <h1 onClick={changeMe}>this is for print</h1>
       <div css={css``}>
         <label

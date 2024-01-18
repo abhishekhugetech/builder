@@ -55,7 +55,7 @@ const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
             css={css`
               margin-left: 8px;
             `}
-          >{selectedNode.data.title} Customization </p>
+          >{selectedNode.data.type} Customization </p>
         </div>
         <CustomizationEditor data={selectedNode.data} onUpdated={onCustomizationUpdated} />
       </div>

@@ -14,7 +14,7 @@ const ColorNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
         font-weight: 500;
       `}
     >
-      <p>{prop.data.description}</p>
+      <p>Choose from our selection of in-stock colors for the fastest delivery.</p>
       <h1>this is for color</h1>
       <div>
         <label
