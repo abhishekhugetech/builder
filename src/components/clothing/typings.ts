@@ -10,19 +10,9 @@ export interface ColorCustomization {
 }
 
 export function getDefaultColorCustomization() {
-  const colors = [
-    {
-      name: "Some color",
-      id: "some_color_id",
-      color: "green",
-      front: "https://google.com",
-      back: "https://google.com",
-    },
-  ];
   return {
     type: CustomizationTypes.Color,
-    colors: colors,
-    selectedColor: colors[0],
+    selectedColor: getClothColors()[0].color,
   };
 }
 
@@ -43,46 +33,54 @@ export function getDefaultPrintCustomization() {
   return {
     type: CustomizationTypes.Print,
     front: {
-      printImageFormat: "string",
-      printImageURL: "string",
+      printImageFormat: "svg",
+      printImageURL: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
       widthCM: "string",
       Placement: "string",
     },
-    back: {
-      printImageFormat: "string",
-      printImageURL: "string",
-      widthCM: "string",
-      Placement: "string",
-    },
+    back: null
   };
 }
 
-interface ClothLabel {
+export enum NeckLabelSize {
+  Small = "small",
+  Large = "large",
+}
+
+export enum NeckPrintSize {
+  ExtraSmall = "ExtraSmall",
+  Small = "Small",
+  Medium = "Medium",
+  Large = "Large",
+  ExtraLarge = "ExtraLarge",
+}
+
+interface NeckLabel {
   labelImageFormat: string;
   labelImageURL: string;
-  labelSize: string;
-  labelPrintSize: string;
+  labelSize: NeckLabelSize;
+  labelPrintSize: NeckPrintSize;
 }
 
 export interface NeckLabelCustomization {
   type: CustomizationTypes;
-  label?: ClothLabel;
+  label?: NeckLabel;
 }
 
 export function getDefaultNeckLabelCustomization() {
   return {
     type: CustomizationTypes.NeckLabel,
     label: {
-      labelImageFormat: "png",
-      labelImageURL: "",
-      labelSize: "",
-      labelPrintSize: "",
+      labelImageFormat: "svg",
+      labelImageURL: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+      labelSize: NeckLabelSize.Large,
+      labelPrintSize: NeckPrintSize.Medium,
     },
   };
 }
 
 export interface ClothCutomization {
-  colors: ColorCustomization;
+  color: ColorCustomization;
   print: PrintCustomization;
   neckLable: NeckLabelCustomization;
 }
@@ -94,18 +92,39 @@ export type CustomizationData =
 
 export interface ClothColorPair {
   color: string;
-  image: string;
+  front: string;
+  back: string;
 }
 
-export interface SizeChart {
-  sizeChartURL: string;
+export function getClothColors() {
+  return [
+    {
+      color: "black",
+      front: "https://i.ibb.co/rbPPC6W/front-png-min.png",
+      back: "https://i.ibb.co/cknjB10/back-png-min.png",
+    },
+  ];
 }
 
 export interface Cloth {
   id: string;
   name: string;
-  defaultColor: string;
-  sizeChart: SizeChart;
+  color: string;
   colors: Array<ClothColorPair>;
   customizations: ClothCutomization;
+}
+
+
+export function getDefaultCloth() {
+  return {
+    id: "some_cloth_id",
+    name: "Basic TShirt",
+    color: "White",
+    colors: getClothColors(),
+    customizations: {
+      color: getDefaultColorCustomization(),
+      print: getDefaultPrintCustomization(),
+      neckLabel: getDefaultNeckLabelCustomization()
+    }
+  }
 }
