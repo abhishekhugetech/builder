@@ -100,7 +100,7 @@ export interface ClothColorPair {
 export function getClothColors() {
   return [
     {
-      color: "black",
+      color: "#000",
       name: "Black",
       front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black_back.png",
@@ -118,7 +118,7 @@ export function getClothColors() {
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange_back.png",
     },
     {
-      color: "white",
+      color: "#fff",
       name: "White",
       front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White_back.png",

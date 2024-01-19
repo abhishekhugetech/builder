@@ -50,10 +50,15 @@ const CustomCard = ({ title, checked, color }) => {
     justifyContent: "space-between",
     backgroundColor: color, // Set your desired background color
     color: getContrastColor(color), // Set text color based on background color
-    borderRadius: theme.shape.borderRadius,
+    borderRadius: "15px",
+    cursor: "pointer",
     padding: theme.spacing(2),
     position: "relative",
-    margin: "16px 32px",
+    margin: "20px 32px",
+    transition: "transform 0.5s", // Add a transition for the transform property
+    "&:hover": {
+      transform: "scale(1.05)", // Scale up on hover
+    },
   }));
 
   const StyledBox = styled(Box)(({ theme }) => ({
