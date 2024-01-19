@@ -6,6 +6,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { ReactFlowProvider } from "reactflow";
 import {
+  Cloth,
   CustomizationData,
   CustomizationTypes,
   getDefaultCloth,
@@ -20,15 +21,22 @@ function App() {
     switch (customization.type) {
       case CustomizationTypes.Color: {
         cloth.customizations.color = customization;
+        break;
       }
       case CustomizationTypes.NeckLabel: {
         cloth.customizations.neckLable = customization;
+        break;
       }
       case CustomizationTypes.Print: {
         cloth.customizations.print = customization;
+        break;
       }
     }
     updateCloth(cloth);
+  };
+
+  const onUpdateCloth = (c: Cloth) => {
+    updateCloth({...c});
   };
 
   return (
@@ -53,8 +61,9 @@ function App() {
                 flex: 1;
               `}
             >
-              <FlowZone />
+              <FlowZone {...cloth} />
               <Sidebar
+                onUpdateCloth={onUpdateCloth}
                 onCustomizationUpdated={onCustomizationUpdated}
                 cloth={cloth}
               />

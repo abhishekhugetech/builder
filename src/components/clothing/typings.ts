@@ -92,6 +92,7 @@ export type CustomizationData =
 
 export interface ClothColorPair {
   color: string;
+  name: string;
   front: string;
   back: string;
 }
@@ -100,8 +101,33 @@ export function getClothColors() {
   return [
     {
       color: "black",
-      front: "https://i.ibb.co/rbPPC6W/front-png-min.png",
-      back: "https://i.ibb.co/cknjB10/back-png-min.png",
+      name: "Black",
+      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black_back.png",
+    },
+    {
+      color: "#454545",
+      name: "Dark Gray",
+      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DarkGreyMelange.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DarkGreyMelange_back.png",
+    },
+    {
+      color: "#d9d9d9",
+      name: "Light Gray",
+      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange_back.png",
+    },
+    {
+      color: "white",
+      name: "White",
+      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White_back.png",
+    },
+    {
+      color: "#85909c",
+      name: "Blue Haze",
+      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze_back.png",
     },
   ] as Array<ClothColorPair>;
 }
@@ -130,7 +156,7 @@ export function getDefaultCloth() {
   return {
     id: "some_cloth_id",
     name: "Basic TShirt",
-    color: "White",
+    color: "Black",
     colors: getClothColors(),
     customizations: {
       color: getDefaultColorCustomization(),
