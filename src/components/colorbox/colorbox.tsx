@@ -66,6 +66,7 @@ const CustomCard = ({ title, checked, color }) => {
     height: 30,
     borderRadius: "50%",
     border: `2px solid ${getContrastColor(color)}`,
+    color: getContrastColor(color),
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -84,7 +85,7 @@ const CustomCard = ({ title, checked, color }) => {
       </CardContent>
       <StyledBox>
         {checked && (
-          <Typography variant="body2" style={{ color: "white" }}>
+          <Typography variant="body2" >
             ✓
           </Typography>
         )}
