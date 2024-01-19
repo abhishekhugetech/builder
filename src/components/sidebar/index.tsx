@@ -3,26 +3,30 @@ import { FC, useState } from "react";
 import NodeListRenderer, { NodeTypeProps } from "./nodes";
 import CustomizationEditor from "./editor";
 import { ChevronLeft } from "lucide-react";
-import { CustomizationData } from "../clothing/typings";
+import {
+  Cloth,
+  CustomizationData,
+  getCustomizationOptions,
+} from "../clothing/typings";
 
 interface SidebarProps {
-  nodes: NodeTypeProps[];
-  onCustomizationUpdated?: (customization : CustomizationData) => void
+  cloth: Cloth;
+  onCustomizationUpdated?: (customization: CustomizationData) => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
-  const [selectedNodes, setSelectedNodes] = useState(Array<NodeTypeProps>())
+const Sidebar: FC<SidebarProps> = ({ cloth, onCustomizationUpdated }) => {
+  const [selectedCustomization, setCustomization] = useState(
+    {} as CustomizationData
+  );
   const onDeselect = () => {
-    setSelectedNodes([]);
+    setCustomization({} as CustomizationData);
   };
 
-  const isSingleNodeSelected = selectedNodes.length === 1;
+  const isSingleNodeSelected = Object.keys(selectedCustomization).length > 0;
 
   // If a single node selected, show the node editor, Editor is a self contained
   // component, it will handle the node type and show the appropriate editor
   if (isSingleNodeSelected) {
-    const selectedNode = selectedNodes[0];
-
     return (
       <div
         css={css`
@@ -55,9 +59,14 @@ const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
             css={css`
               margin-left: 8px;
             `}
-          >{selectedNode.data.type} Customization </p>
+          >
+            {selectedCustomization.type} Customization{" "}
+          </p>
         </div>
-        <CustomizationEditor data={selectedNode.data} onUpdated={onCustomizationUpdated} />
+        <CustomizationEditor
+          data={selectedCustomization}
+          onUpdated={onCustomizationUpdated}
+        />
       </div>
     );
   }
@@ -78,7 +87,9 @@ const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
       >
         <h2>Customize</h2>
         <br />
-        Customize the details and color to make the Hoodie design your own. All items automatically come with a size and care label. These are included in the price.
+        Customize the details and color to make the Hoodie design your own. All
+        items automatically come with a size and care label. These are included
+        in the price.
       </div>
       <div
         css={css`
@@ -88,10 +99,12 @@ const Sidebar: FC<SidebarProps> = ({ nodes, onCustomizationUpdated }) => {
           padding: 24px 28px;
         `}
       >
-        {nodes.map((node) => (
-          <NodeListRenderer 
-          setCustomization={setSelectedNodes}
-          key={node.id} {...node} />
+        {getCustomizationOptions(cloth).map((node) => (
+          <NodeListRenderer
+            data={node}
+            setCustomization={setCustomization}
+            key={node.type}
+          />
         ))}
       </div>
     </div>

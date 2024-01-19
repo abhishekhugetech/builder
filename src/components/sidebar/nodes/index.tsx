@@ -3,17 +3,14 @@ import { css } from "@emotion/react";
 import { CustomizationTypes, CustomizationData } from "../../clothing/typings";
 
 export interface NodeTypeProps {
-  id: string;
   data: CustomizationData;
-  setCustomization?: (customization : Array<NodeTypeProps>) => void
+  setCustomization?: (customization: CustomizationData) => void;
 }
 
 // NodeTypeRenderer renders the different properties on the sidebar
 const NodeListRenderer: FC<NodeTypeProps> = (customization) => {
   return (
-    <div
-      id={customization.id}
-    >
+    <div id={customization.data.type}>
       <p
         css={css`
           margin-top: 20px;
@@ -22,9 +19,10 @@ const NodeListRenderer: FC<NodeTypeProps> = (customization) => {
         {customization.data.type}
       </p>
       <button
-      onClick={()=>{
-        customization.setCustomization([customization])
-      }}>
+        onClick={() => {
+          customization.setCustomization(customization.data);
+        }}
+      >
         Change
       </button>
     </div>

@@ -13,7 +13,7 @@ export function getDefaultColorCustomization() {
   return {
     type: CustomizationTypes.Color,
     selectedColor: getClothColors()[0].color,
-  };
+  } as ColorCustomization;
 }
 
 interface ClothPrint {
@@ -39,7 +39,7 @@ export function getDefaultPrintCustomization() {
       Placement: "string",
     },
     back: null
-  };
+  } as PrintCustomization;
 }
 
 export enum NeckLabelSize {
@@ -76,7 +76,7 @@ export function getDefaultNeckLabelCustomization() {
       labelSize: NeckLabelSize.Large,
       labelPrintSize: NeckPrintSize.Medium,
     },
-  };
+  } as NeckLabelCustomization;
 }
 
 export interface ClothCutomization {
@@ -103,7 +103,7 @@ export function getClothColors() {
       front: "https://i.ibb.co/rbPPC6W/front-png-min.png",
       back: "https://i.ibb.co/cknjB10/back-png-min.png",
     },
-  ];
+  ] as Array<ClothColorPair>;
 }
 
 export interface Cloth {
@@ -112,6 +112,17 @@ export interface Cloth {
   color: string;
   colors: Array<ClothColorPair>;
   customizations: ClothCutomization;
+}
+
+export function getCustomizationOptions(cloth : Cloth) {
+  const allCusts = Array<CustomizationData>()
+  const keys = Object.keys(cloth.customizations)
+
+  for (const key of keys) {
+    allCusts.push(cloth.customizations[key])
+  }
+
+  return allCusts;
 }
 
 
@@ -124,7 +135,7 @@ export function getDefaultCloth() {
     customizations: {
       color: getDefaultColorCustomization(),
       print: getDefaultPrintCustomization(),
-      neckLabel: getDefaultNeckLabelCustomization()
-    }
-  }
+      neckLable: getDefaultNeckLabelCustomization(),
+    } as ClothCutomization
+  } as Cloth
 }
