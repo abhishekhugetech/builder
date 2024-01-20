@@ -16,11 +16,20 @@ export function getDefaultColorCustomization() {
   } as ColorCustomization;
 }
 
-interface ClothPrint {
+export enum ClothPrintPlacement {
+  Right = "Right",
+  Middle = "Middle",
+  Left = "Left",
+  TopRight = "TopRight",
+  TopMiddle = "TopMiddle",
+  TopLeft = "TopLeft",
+}
+
+export interface ClothPrint {
   printImageFormat: string;
   printImageURL: string;
   widthCM: string;
-  Placement: string;
+  Placement: ClothPrintPlacement;
 }
 
 export interface PrintCustomization {
@@ -34,11 +43,12 @@ export function getDefaultPrintCustomization() {
     type: CustomizationTypes.Print,
     front: {
       printImageFormat: "svg",
-      printImageURL: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+      printImageURL:
+        "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
       widthCM: "string",
-      Placement: "string",
+      Placement: ClothPrintPlacement.Middle,
     },
-    back: null
+    back: null,
   } as PrintCustomization;
 }
 
@@ -72,7 +82,8 @@ export function getDefaultNeckLabelCustomization() {
     type: CustomizationTypes.NeckLabel,
     label: {
       labelImageFormat: "svg",
-      labelImageURL: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+      labelImageURL:
+        "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
       labelSize: NeckLabelSize.Large,
       labelPrintSize: NeckPrintSize.Medium,
     },
@@ -102,31 +113,36 @@ export function getClothColors() {
     {
       color: "#000",
       name: "Black",
-      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black.png",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Black_back.png",
     },
     {
       color: "#454545",
       name: "Dark Gray",
-      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DarkGreyMelange.png",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DarkGreyMelange.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DarkGreyMelange_back.png",
     },
     {
       color: "#d9d9d9",
       name: "Light Gray",
-      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange.png",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_LightGreyMelange_back.png",
     },
     {
       color: "#fff",
       name: "White",
-      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White.png",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_White_back.png",
     },
     {
       color: "#85909c",
       name: "Blue Haze",
-      front: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze.png",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze_back.png",
     },
   ] as Array<ClothColorPair>;
@@ -140,17 +156,16 @@ export interface Cloth {
   customizations: ClothCutomization;
 }
 
-export function getCustomizationOptions(cloth : Cloth) {
-  const allCusts = Array<CustomizationData>()
-  const keys = Object.keys(cloth.customizations)
+export function getCustomizationOptions(cloth: Cloth) {
+  const allCusts = Array<CustomizationData>();
+  const keys = Object.keys(cloth.customizations);
 
   for (const key of keys) {
-    allCusts.push(cloth.customizations[key])
+    allCusts.push(cloth.customizations[key]);
   }
 
   return allCusts;
 }
-
 
 export function getDefaultCloth() {
   return {
@@ -162,6 +177,6 @@ export function getDefaultCloth() {
       color: getDefaultColorCustomization(),
       print: getDefaultPrintCustomization(),
       neckLable: getDefaultNeckLabelCustomization(),
-    } as ClothCutomization
-  } as Cloth
+    } as ClothCutomization,
+  } as Cloth;
 }

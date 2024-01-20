@@ -18,6 +18,8 @@ function App() {
   const [cloth, updateCloth] = useState(getDefaultCloth());
 
   const onCustomizationUpdated = (customization: CustomizationData) => {
+    console.log("customizatio update", customization);
+
     switch (customization.type) {
       case CustomizationTypes.Color: {
         cloth.customizations.color = customization;
@@ -32,11 +34,12 @@ function App() {
         break;
       }
     }
-    updateCloth(cloth);
+    updateCloth({ ...cloth });
+    console.log(`cloth updated`);
   };
 
   const onUpdateCloth = (c: Cloth) => {
-    updateCloth({...c});
+    updateCloth({ ...c });
   };
 
   return (

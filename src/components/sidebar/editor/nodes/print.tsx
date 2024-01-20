@@ -1,72 +1,49 @@
 import { ChangeEvent, FC, useCallback } from "react";
 import { css } from "@emotion/react";
-import { PrintCustomization } from "../../../clothing/typings";
+import {
+  ClothColorPair,
+  ClothPrint,
+  ClothPrintPlacement,
+  PrintCustomization,
+} from "../../../clothing/typings";
 import { CustomizationEditorProps } from "..";
+import FileUploadBox from "../../../fileupload/fileupload";
+import { UploadError, UploadResponse } from "../../../fileupload/typings";
 
 const PrintNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
-  const changeMe = () => {
-    const newData = {
-      ...prop.data,
-      description: "Some print Description",
-      title: "Some Print title",
-    };
-    prop.onUpdated(newData)
-  }
   return (
-    <div
-      css={css`
-        padding: 16px 28px;
-        border-bottom: 1px solid lightblue;
-        font-weight: 500;
-      `}
-    >
-      <p>Add the print of your choice. Please note that the print has to be placed in the printable area.</p>
-      <h1 onClick={changeMe}>this is for print</h1>
-      <div css={css``}>
-        <label
-          htmlFor="text"
-          css={css`
-            font-weight: 400;
-          `}
-        >
-          URL
-        </label>
-        <input
-          name="url"
-          css={css`
-            padding: 8px 12px;
-            border-radius: 4px;
-            border: 1px solid lightblue;
-            font-weight: 400;
-            margin-top: 8px;
-            width: 100%;
-          `}
-        />
-      </div>
+    <div>
       <div
         css={css`
-          margin-top: 16px;
+          padding: 16px 28px;
+          border-bottom: 1px solid lightblue;
+          font-weight: 500;
         `}
       >
-        <label
-          htmlFor="text"
-          css={css`
-            font-weight: 400;
-          `}
-        >
-          Caption
-        </label>
-        <textarea
-          name="caption"
-          css={css`
-            margin-top: 8px;
-            padding: 8px 12px;
-            border: 1px solid lightblue;
-            border-radius: 4px;
-            font-weight: 400;
-            width: 100%;
-            height: 100px;
-          `}
+        <p>
+          Add the print of your choice. Please note that the print has to be
+          placed in the printable area.
+        </p>
+      </div>
+      <div>
+        <FileUploadBox
+          onUploadError={(err: UploadError) => {
+            alert(err.message);
+          }}
+          onUploadSuccess={(res: UploadResponse) => {
+            const print = prop.data as PrintCustomization;
+            // print.F
+            const newData = {
+              ...print,
+              front: {
+                printImageURL: res.url,
+                Placement: ClothPrintPlacement.Middle,
+                printImageFormat: res.extension,
+                widthCM: "30cm",
+              } as ClothPrint,
+            };
+            prop.onUpdated(newData);
+          }}
         />
       </div>
     </div>
