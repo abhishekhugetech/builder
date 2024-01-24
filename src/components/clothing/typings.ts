@@ -28,7 +28,7 @@ export enum ClothPrintPlacement {
 export interface ClothPrint {
   printImageFormat: string;
   printImageURL: string;
-  widthCM: string;
+  PrintSize: number;
   Placement: ClothPrintPlacement;
 }
 
@@ -45,7 +45,7 @@ export function getDefaultPrintCustomization() {
       printImageFormat: "svg",
       printImageURL:
         "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
-      widthCM: "string",
+      PrintSize: 100,
       Placement: ClothPrintPlacement.Middle,
     },
     back: null,

@@ -39,7 +39,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
                 printImageURL: res.url,
                 Placement: ClothPrintPlacement.Middle,
                 printImageFormat: res.extension,
-                widthCM: "30cm",
+                PrintSize: 100,
               } as ClothPrint,
             };
             prop.onUpdated(newData);
