@@ -2,7 +2,6 @@ import "reactflow/dist/style.css";
 import { Cloth } from "../clothing/typings";
 import { css } from "@emotion/react";
 import { FC } from "react";
-import MobileOptimizedComponent from "./comp";
 import { Card, CardContent, Typography, Container, Box } from "@mui/material";
 import { styled, createTheme, useTheme, ThemeProvider } from "@mui/system";
 
