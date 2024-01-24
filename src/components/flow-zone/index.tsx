@@ -22,95 +22,59 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
     justifyContent: "center",
   }));
 
-  const ChildBox = styled(Box)(({ theme }) => ({
-    width: "100%",
-    height: "100%",
-    position: "absolute",
-    top: "0%",
-    left: "0%",
-  }));
-
-  const CenterBox = styled(Box)(({ theme }) => ({
-    width: "20%",
-    height: "40%",
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    borderRadius: theme.shape.borderRadius,
-  }));
-
-  const SmallBox = styled(Box)(({ theme }) => ({
-    width: "4%",
-    height: "3%",
-    position: "absolute",
-    top: "10%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    marginTop: theme.spacing(2), // Add margin as needed
-    borderRadius: theme.shape.borderRadius,
-  }));
-
   return (
-    <ParentBox>
-      <Container maxWidth="xl">
-        <ChildBox>
-          <img
-            src={colors.find((c) => c.name == color).front}
-            css={css`
-              width: "100%";
-              height: "100%";
-            `}
-          />
-        </ChildBox>
-      </Container>
-      <Container maxWidth="sm">
-        <CenterBox>
-          {
-            <img
-              id="print"
-              src={customizations.print.front?.printImageURL}
-              css={css`
-              x: "40%",
-              y: "40%",
-              width: "30%",
-              height: "30%"
-              `}
-            />
-          }
-        </CenterBox>
-      </Container>
-      <Container maxWidth="xs">
-        <SmallBox>
-          <div
-            css={css`
-              position: "relative";
-            `}
-          >
-            <img
-              id="neckLabelTag"
-              src="https://design.sonsupply.com/_nuxt/neck-label-large.7d8dfb3c.png"
-              css={css`
-                width: 100%;
-                height: 100%;
-              `}
-            />
-            <img
-              id="neckLabel"
-              src="https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg"
-              css={css`
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                width: 70%;
-                height: 60%;
-                transform: translate(-50%, -50%);
-              `}
-            />
-          </div>
-        </SmallBox>
-      </Container>
-    </ParentBox>
+    <div>
+      <ParentBox>
+        <svg
+          viewBox="0 0 2000 2222"
+          xmlns="http://www.w3.org/2000/svg"
+          className="customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center transition-all delay-200 duration-500"
+          css={css`
+            transform: none;
+          `}
+        >
+          <image
+            href={colors.find((c) => c.name == color).front}
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          ></image>
+          {/* Default neck label (TODO: Make it dynamic based on size) */}
+          <image
+            href="https://design.sonsupply.com/_nuxt/neck-label-large.7d8dfb3c.png"
+            x="959"
+            y="165"
+            width="87"
+            height="65"
+          ></image>
+          {/* Neck Lable */}
+          <image
+            href={customizations.neckLable.label?.labelImageURL}
+            x="971.07125"
+            y="175.42125"
+            width="62.8575"
+            height="44.1575"
+          ></image>
+          <rect
+            x="650"
+            y="512"
+            width="705"
+            height="940"
+            stroke="#F06527"
+            fill="none"
+          ></rect>
+          {/* Print Image */}
+          <image
+            href={customizations.print.front?.printImageURL}
+            x="650"
+            y="512"
+            width="705"
+            height="698.5023041474655"
+          ></image>
+        </svg>
+      </ParentBox>
+    </div>
   );
 };
 

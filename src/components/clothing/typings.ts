@@ -83,7 +83,7 @@ export function getDefaultNeckLabelCustomization() {
     label: {
       labelImageFormat: "svg",
       labelImageURL:
-        "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Original_Adidas_logo.svg/1200px-Original_Adidas_logo.svg.png",
       labelSize: NeckLabelSize.Large,
       labelPrintSize: NeckPrintSize.Medium,
     },
