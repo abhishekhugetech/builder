@@ -56,6 +56,7 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
             width="62.8575"
             height="44.1575"
           ></image>
+          {/* Area around the Design make it dynamic */}
           <rect
             x="650"
             y="512"
