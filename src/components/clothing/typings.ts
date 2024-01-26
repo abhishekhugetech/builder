@@ -46,7 +46,7 @@ export function getDefaultPrintCustomization() {
         url: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
         name: "design.svg",
       },
-      PrintSize: 100,
+      PrintSize: 50,
       Placement: ClothPrintPlacement.Middle,
     },
     back: null,
@@ -108,6 +108,23 @@ export type CustomizationData =
   | ColorCustomization
   | PrintCustomization
   | NeckLabelCustomization;
+
+export function getFrontFile(data: CustomizationData) {
+  let currentFile: CustomizationFile = null;
+  switch (data.type) {
+    case CustomizationTypes.Print: {
+      const a = data as PrintCustomization;
+      currentFile = a.front?.file;
+      break;
+    }
+    case CustomizationTypes.NeckLabel: {
+      const a = data as NeckLabelCustomization;
+      currentFile = a.label?.file;
+      break;
+    }
+  }
+  return currentFile;
+}
 
 export interface ClothColorPair {
   color: string;

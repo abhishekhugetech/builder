@@ -24,6 +24,7 @@ import {
   CustomizationTypes,
   NeckLabelCustomization,
   PrintCustomization,
+  getFrontFile,
 } from "../clothing/typings";
 
 const FileUploadBox: FC<UploadProps> = (props) => {
@@ -140,19 +141,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
     inputRef.current.click();
   };
 
-  let currentFile: CustomizationFile = null;
-  switch (props.data.type) {
-    case CustomizationTypes.Print: {
-      const a = props.data as PrintCustomization;
-      currentFile = a.front?.file;
-      break;
-    }
-    case CustomizationTypes.NeckLabel: {
-      const a = props.data as NeckLabelCustomization;
-      currentFile = a.label?.file;
-      break;
-    }
-  }
+  const currentFile: CustomizationFile = getFrontFile(props.data);
 
   return (
     <div>
