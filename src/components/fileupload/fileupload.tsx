@@ -13,6 +13,7 @@ import {
 export interface UploadProps {
   onUploadError: (error: UploadError) => void;
   onUploadSuccess: (file: UploadResponse) => void;
+  onFileRemoved: () => void;
   data: CustomizationData;
 }
 
@@ -124,17 +125,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
   };
 
   const onDesignDelete = () => {
-    props.onUploadSuccess({
-      extension: "",
-      fileName: "",
-      height: 0,
-      width: 0,
-      id: "",
-      mime: "",
-      size: 0,
-      url: "",
-      front: true,
-    });
+    props.onFileRemoved();
   };
 
   const onDesignReplaced = () => {

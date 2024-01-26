@@ -36,6 +36,14 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
     newData.front.Placement = e.target.value;
     props.onUpdated(newData);
   };
+  const handlePlacementSizeChange = (e) => {
+    const print = props.data as PrintCustomization;
+    let newData = {
+      ...print,
+    };
+    newData.front.PrintSize = e.target.value;
+    props.onUpdated(newData);
+  };
   const currentFile: CustomizationFile = getFrontFile(props.data);
   return (
     <div>
@@ -57,30 +65,29 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
           onUploadError={(err: UploadError) => {
             alert(err.message);
           }}
+          onFileRemoved={() => {
+            const print = props.data as PrintCustomization;
+            const newData = {
+              ...print,
+              front: null,
+              back: null,
+            };
+            props.onUpdated(newData);
+          }}
           onUploadSuccess={(res: UploadResponse) => {
-            let newData = {} as CustomizationData;
-            if (res.id === "") {
-              const print = props.data as PrintCustomization;
-              newData = {
-                ...print,
-                front: null,
-                back: null,
-              };
-            } else {
-              const print = props.data as PrintCustomization;
-              newData = {
-                ...print,
-                front: {
-                  file: {
-                    url: res.url,
-                    format: res.extension,
-                    name: res.fileName,
-                  },
-                  Placement: ClothPrintPlacement.Middle,
-                  PrintSize: 100,
-                } as ClothPrint,
-              };
-            }
+            const print = props.data as PrintCustomization;
+            const newData = {
+              ...print,
+              front: {
+                file: {
+                  url: res.url,
+                  format: res.extension,
+                  name: res.fileName,
+                },
+                Placement: ClothPrintPlacement.Middle,
+                PrintSize: 100,
+              } as ClothPrint,
+            };
             props.onUpdated(newData);
           }}
         />
@@ -103,6 +110,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                     max={100}
                     step={1}
                     valueLabelDisplay="auto"
+                    onChange={handlePlacementSizeChange}
                     valueLabelFormat={(value) => `${value} %`}
                   />
                 </Box>
