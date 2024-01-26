@@ -105,7 +105,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                 </Box>
                 <Box margin={`10px 0px`}>
                   <Slider
-                    defaultValue={printCustomization.front?.PrintSize}
+                    value={printCustomization.front?.PrintSize}
                     min={1}
                     max={100}
                     step={1}
