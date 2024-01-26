@@ -4,7 +4,7 @@ import { CustomizationTypes, CustomizationData } from "../../clothing/typings";
 
 export interface NodeTypeProps {
   data: CustomizationData;
-  setCustomization?: (customization: CustomizationData) => void;
+  setCustomization?: (type: CustomizationTypes) => void;
 }
 
 // NodeTypeRenderer renders the different properties on the sidebar
@@ -20,7 +20,7 @@ const NodeListRenderer: FC<NodeTypeProps> = (customization) => {
       </p>
       <button
         onClick={() => {
-          customization.setCustomization(customization.data);
+          customization.setCustomization(customization.data.type);
         }}
       >
         Change

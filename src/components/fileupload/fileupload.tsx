@@ -144,12 +144,12 @@ const FileUploadBox: FC<UploadProps> = (props) => {
   switch (props.data.type) {
     case CustomizationTypes.Print: {
       const a = props.data as PrintCustomization;
-      currentFile = a.front.file;
+      currentFile = a.front?.file;
       break;
     }
     case CustomizationTypes.NeckLabel: {
       const a = props.data as NeckLabelCustomization;
-      currentFile = a.label.file;
+      currentFile = a.label?.file;
       break;
     }
   }
@@ -164,7 +164,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
         accept="image/*"
         onChange={handleFileChange}
       />
-      {currentFile === null ? (
+      {currentFile == null ? (
         <div>
           <label htmlFor="fileInput">
             <Box
@@ -215,7 +215,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
                   font-size: 13px;
                 `}
               >
-                13 cm
+                {currentFile.name}
               </Typography>
             </div>
             <div

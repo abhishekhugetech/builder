@@ -53,6 +53,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
                   file: {
                     url: res.url,
                     format: res.extension,
+                    name: res.fileName,
                   },
                   Placement: ClothPrintPlacement.Middle,
                   PrintSize: 100,

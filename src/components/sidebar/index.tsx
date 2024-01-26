@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import {
   Cloth,
   CustomizationData,
+  getClothCustomization,
   getCustomizationOptions,
 } from "../clothing/typings";
 
@@ -20,18 +21,24 @@ const Sidebar: FC<SidebarProps> = ({
   onCustomizationUpdated,
   onUpdateCloth,
 }) => {
-  const [selectedCustomization, setCustomization] = useState(
-    {} as CustomizationData
-  );
+  const [selectedCustomization, setCustomization] = useState(null);
   const onDeselect = () => {
-    setCustomization({} as CustomizationData);
+    setCustomization(null);
   };
 
-  const isSingleNodeSelected = Object.keys(selectedCustomization).length > 0;
+  const isSingleNodeSelected = selectedCustomization != null;
+  // the selected customization was not getting updated and not getting sent as
+  // updated value even after the customization data was changed
 
   // If a single node selected, show the node editor, Editor is a self contained
   // component, it will handle the node type and show the appropriate editor
   if (isSingleNodeSelected) {
+    const currentCustomization = getClothCustomization(
+      selectedCustomization,
+      cloth
+    );
+    console.log(`current cus`, currentCustomization);
+
     return (
       <div
         css={css`
@@ -70,7 +77,7 @@ const Sidebar: FC<SidebarProps> = ({
         </div>
         <CustomizationEditor
           cloth={cloth}
-          data={selectedCustomization}
+          data={currentCustomization}
           onUpdated={onCustomizationUpdated}
           onUpdateCloth={onUpdateCloth}
         />

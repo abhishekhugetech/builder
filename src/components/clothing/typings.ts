@@ -44,6 +44,7 @@ export function getDefaultPrintCustomization() {
       file: {
         format: "svg",
         url: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+        name: "design.svg",
       },
       PrintSize: 100,
       Placement: ClothPrintPlacement.Middle,
@@ -68,6 +69,7 @@ export enum NeckPrintSize {
 export interface CustomizationFile {
   format: string;
   url: string;
+  name: string;
 }
 
 interface NeckLabel {
@@ -88,6 +90,7 @@ export function getDefaultNeckLabelCustomization() {
       file: {
         format: "png",
         url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Original_Adidas_logo.svg/1200px-Original_Adidas_logo.svg.png",
+        name: "design.png",
       },
       labelSize: NeckLabelSize.Large,
       labelPrintSize: NeckPrintSize.Medium,
@@ -159,6 +162,21 @@ export interface Cloth {
   color: string;
   colors: Array<ClothColorPair>;
   customizations: ClothCutomization;
+}
+
+export function getClothCustomization(type: CustomizationTypes, cloth: Cloth) {
+  switch (type) {
+    case CustomizationTypes.Color: {
+      return cloth.customizations.color;
+    }
+    case CustomizationTypes.NeckLabel: {
+      return cloth.customizations.neckLable;
+    }
+    case CustomizationTypes.Print: {
+      return cloth.customizations.print;
+    }
+  }
+  return null;
 }
 
 export function getCustomizationOptions(cloth: Cloth) {
