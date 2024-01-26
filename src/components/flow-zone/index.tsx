@@ -47,13 +47,18 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
   }));
 
   return (
-    <div>
+    <div
+      css={css`
+        overflow: hidden;
+      `}
+    >
       <ParentBox>
         <svg
           viewBox="0 0 2000 2222"
           xmlns="http://www.w3.org/2000/svg"
           className="customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center transition-all delay-200 duration-500"
           css={css`
+            transform: scale(3) translate(0px, 285.469px);
             transform: none;
           `}
         >
