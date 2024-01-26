@@ -8,8 +8,6 @@ import { styled, createTheme, useTheme, ThemeProvider } from "@mui/system";
 import { shallow } from "zustand/shallow";
 
 const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
-  console.log(`rendered `, customizations);
-
   const ParentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100vh", // Adjust as needed
@@ -50,7 +48,7 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
           ></image>
           {/* Neck Lable */}
           <image
-            href={customizations.neckLable.label?.labelImageURL}
+            href={customizations.neckLable.label?.file.url}
             x="971.07125"
             y="175.42125"
             width="62.8575"
@@ -67,7 +65,7 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
           ></rect>
           {/* Print Image */}
           <image
-            href={customizations.print.front?.printImageURL}
+            href={customizations.print.front?.file.url}
             x="650"
             y="512"
             width="705"

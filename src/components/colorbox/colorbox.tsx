@@ -61,7 +61,7 @@ const CustomCard = ({ title, checked, color }) => {
     },
   }));
 
-  const StyledBox = styled(Box)(({ theme }) => ({
+  const Circle = styled(Box)(({ theme }) => ({
     width: 30,
     height: 30,
     borderRadius: "50%",
@@ -83,13 +83,7 @@ const CustomCard = ({ title, checked, color }) => {
           {title}
         </Typography>
       </CardContent>
-      <StyledBox>
-        {checked && (
-          <Typography variant="body2" >
-            ✓
-          </Typography>
-        )}
-      </StyledBox>
+      <Circle>{checked && <Typography variant="body2">✓</Typography>}</Circle>
     </StyledCard>
   );
 };

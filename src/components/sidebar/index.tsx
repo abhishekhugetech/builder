@@ -15,7 +15,11 @@ interface SidebarProps {
   onUpdateCloth?: (cloth: Cloth) => void;
 }
 
-const Sidebar: FC<SidebarProps> = ({ cloth, onCustomizationUpdated, onUpdateCloth }) => {
+const Sidebar: FC<SidebarProps> = ({
+  cloth,
+  onCustomizationUpdated,
+  onUpdateCloth,
+}) => {
   const [selectedCustomization, setCustomization] = useState(
     {} as CustomizationData
   );
@@ -61,7 +65,7 @@ const Sidebar: FC<SidebarProps> = ({ cloth, onCustomizationUpdated, onUpdateClot
               margin-left: 8px;
             `}
           >
-            {selectedCustomization.type} Customization{" "}
+            {selectedCustomization.type} Customization
           </p>
         </div>
         <CustomizationEditor

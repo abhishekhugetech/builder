@@ -26,8 +26,7 @@ export enum ClothPrintPlacement {
 }
 
 export interface ClothPrint {
-  printImageFormat: string;
-  printImageURL: string;
+  file: CustomizationFile;
   PrintSize: number;
   Placement: ClothPrintPlacement;
 }
@@ -42,9 +41,10 @@ export function getDefaultPrintCustomization() {
   return {
     type: CustomizationTypes.Print,
     front: {
-      printImageFormat: "svg",
-      printImageURL:
-        "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+      file: {
+        format: "svg",
+        url: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
+      },
       PrintSize: 100,
       Placement: ClothPrintPlacement.Middle,
     },
@@ -65,9 +65,13 @@ export enum NeckPrintSize {
   ExtraLarge = "ExtraLarge",
 }
 
+export interface CustomizationFile {
+  format: string;
+  url: string;
+}
+
 interface NeckLabel {
-  labelImageFormat: string;
-  labelImageURL: string;
+  file: CustomizationFile;
   labelSize: NeckLabelSize;
   labelPrintSize: NeckPrintSize;
 }
@@ -81,9 +85,10 @@ export function getDefaultNeckLabelCustomization() {
   return {
     type: CustomizationTypes.NeckLabel,
     label: {
-      labelImageFormat: "svg",
-      labelImageURL:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Original_Adidas_logo.svg/1200px-Original_Adidas_logo.svg.png",
+      file: {
+        format: "png",
+        url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Original_Adidas_logo.svg/1200px-Original_Adidas_logo.svg.png",
+      },
       labelSize: NeckLabelSize.Large,
       labelPrintSize: NeckPrintSize.Medium,
     },

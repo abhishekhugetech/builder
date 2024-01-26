@@ -15,8 +15,7 @@ const NeckLabelNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
     >
       <p>Add your own personalized neck label</p>
       <h1>this is for neck label</h1>
-      <h3
-      >{prop.data.type} is the type </h3>
+      <h3>{prop.data.type} is the type </h3>
       <div css={css``}>
         <label
           htmlFor="text"

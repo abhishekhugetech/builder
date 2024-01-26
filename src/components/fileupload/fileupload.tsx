@@ -13,9 +13,36 @@ import {
 export interface UploadProps {
   onUploadError: (error: UploadError) => void;
   onUploadSuccess: (file: UploadResponse) => void;
+  data: CustomizationData;
 }
 
+import { Button, Slider } from "@mui/material";
+import { styled } from "@mui/system";
+import {
+  CustomizationData,
+  CustomizationFile,
+  CustomizationTypes,
+  NeckLabelCustomization,
+  PrintCustomization,
+} from "../clothing/typings";
+
 const FileUploadBox: FC<UploadProps> = (props) => {
+  console.log("rendered file upload", props);
+
+  const StyledCard = styled(Box)(({ theme }) => ({
+    backgroundColor: "#eee", // Set your desired background color
+    borderRadius: "3px",
+    padding: theme.spacing(2),
+    margin: "20px 32px",
+  }));
+
+  const BoldTypo = styled(Typography)(({ theme }) => ({
+    fontSize: "16px",
+    textTransform: "uppercase",
+    cursor: "pointer",
+    fontWeight: "bold",
+  }));
+
   const [selectedFile, setFile] = useState(null);
   // Remove if don't want to upload same file again and rerender
   const inputRef = useRef(null);
@@ -76,6 +103,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
           mime: result.data.image.mime,
           size: result.data.size,
           url: result.data.image.url,
+          front: true,
         });
         return;
       } else {
@@ -94,6 +122,38 @@ const FileUploadBox: FC<UploadProps> = (props) => {
     }
   };
 
+  const onDesignDelete = () => {
+    props.onUploadSuccess({
+      extension: "",
+      fileName: "",
+      height: 0,
+      width: 0,
+      id: "",
+      mime: "",
+      size: 0,
+      url: "",
+      front: true,
+    });
+  };
+
+  const onDesignReplaced = () => {
+    inputRef.current.click();
+  };
+
+  let currentFile: CustomizationFile = null;
+  switch (props.data.type) {
+    case CustomizationTypes.Print: {
+      const a = props.data as PrintCustomization;
+      currentFile = a.front.file;
+      break;
+    }
+    case CustomizationTypes.NeckLabel: {
+      const a = props.data as NeckLabelCustomization;
+      currentFile = a.label.file;
+      break;
+    }
+  }
+
   return (
     <div>
       <input
@@ -104,39 +164,73 @@ const FileUploadBox: FC<UploadProps> = (props) => {
         accept="image/*"
         onChange={handleFileChange}
       />
-      <label htmlFor="fileInput">
-        <Box
-          border="2px dashed #888"
-          borderRadius={4}
-          p={2}
-          margin={"20px 32px"}
-          textAlign="center"
-          css={css`
-            cursor: pointer;
-          `}
-          position="relative"
-        >
-          <Box display="flex" justifyContent="center" alignItems="center">
+      {currentFile === null ? (
+        <div>
+          <label htmlFor="fileInput">
             <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              borderRadius="50%"
-              width={30}
-              height={30}
-              bgcolor="#f5f5f5"
+              border="2px dashed #888"
+              borderRadius={4}
+              p={2}
+              margin={"20px 32px"}
+              textAlign="center"
+              css={css`
+                cursor: pointer;
+              `}
+              position="relative"
             >
-              <AddCircleOutlineIcon
-                fontSize="large"
-                style={{ color: "#000" }}
-              />
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  borderRadius="50%"
+                  width={30}
+                  height={30}
+                  bgcolor="#f5f5f5"
+                >
+                  <AddCircleOutlineIcon
+                    fontSize="large"
+                    style={{ color: "#000" }}
+                  />
+                </Box>
+              </Box>
+              <Typography color={"#737373"} variant="body2" mt={1}>
+                Add a design file
+              </Typography>
             </Box>
-          </Box>
-          <Typography color={"#737373"} variant="body2" mt={1}>
-            Add a design file
-          </Typography>
-        </Box>
-      </label>
+          </label>
+        </div>
+      ) : (
+        <div>
+          <StyledCard>
+            <div
+              css={css`
+                display: flex;
+                justify-content: start;
+                margin-left: 10px;
+              `}
+            >
+              <Typography
+                css={css`
+                  font-size: 13px;
+                `}
+              >
+                13 cm
+              </Typography>
+            </div>
+            <div
+              css={css`
+                display: flex;
+                justify-content: space-evenly;
+                margin-top: 10px;
+              `}
+            >
+              <BoldTypo onClick={onDesignReplaced}>Replace</BoldTypo>
+              <BoldTypo onClick={onDesignDelete}>Delete</BoldTypo>
+            </div>
+          </StyledCard>
+        </div>
+      )}
     </div>
   );
 };
