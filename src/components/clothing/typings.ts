@@ -23,6 +23,9 @@ export enum ClothPrintPlacement {
   TopRight = "TopRight",
   TopMiddle = "TopMiddle",
   TopLeft = "TopLeft",
+  BottomRight = "BottomRight",
+  BottomMiddle = "BottomMiddle",
+  BottomLeft = "BottomLeft",
 }
 
 export interface ClothPrint {
@@ -135,22 +138,67 @@ export function GetNeckPrintImageConfig(
   return { x: 0, y: 0, width: 0, height: 0 };
 }
 
-/*
-<image href="" x="987.71" y="178.41" width="29.580000000000002" 
-height="9.18" class=""></image>
+export function GetPrintLabelImageConfig(
+  percent: number,
+  placement: ClothPrintPlacement
+): ImagePositionConfig {
+  // Parent box dimensions
+  const parentX = 650;
+  const parentY = 512;
+  const parentWidth = 705;
+  const parentHeight = 940;
 
-<image href="" x="984.0125" y="177.2625" width="36.975" 
-height="11.475" class=""></image>
+  // Calculate inner box dimensions based on percentage
+  const innerWidth = parentWidth * (percent / 100);
+  const innerHeight = parentHeight * (percent / 100);
 
-<image href="" x="980.315" y="176.115" width="44.37" 
-height="13.77" class=""></image>
+  // Calculate x and y coordinates based on placement
+  let x, y;
+  switch (placement) {
+    case ClothPrintPlacement.TopLeft:
+      x = parentX;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.TopRight:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.TopMiddle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.Right:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.Left:
+      x = parentX;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.Middle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.BottomRight:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    case ClothPrintPlacement.BottomMiddle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    case ClothPrintPlacement.BottomLeft:
+      x = parentX;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    default:
+      // Default to top left placement
+      x = parentX;
+      y = parentY;
+  }
 
-<image href="" x="971.07125" y="173.24625" width="62.8575" 
-height="19.5075" class=""></image>
-
-<image href="" x="965.525" y="171.525" width="73.95" 
-height="22.95" class=""></image>
-*/
+  return { x, y, width: innerWidth, height: innerHeight };
+}
 
 export enum NeckPrintSize {
   ExtraSmall = "ExtraSmall",

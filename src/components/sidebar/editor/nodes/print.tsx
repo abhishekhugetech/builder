@@ -150,6 +150,15 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                         <MenuItem value={ClothPrintPlacement.TopRight}>
                           Top Right
                         </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.BottomLeft}>
+                          Bottom Left
+                        </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.BottomMiddle}>
+                          Bottom Middle
+                        </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.BottomRight}>
+                          Bottom Right
+                        </MenuItem>
                       </Select>
                     </FormControl>
                   </Box>

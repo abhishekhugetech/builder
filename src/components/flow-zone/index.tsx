@@ -4,6 +4,7 @@ import {
   GetNeckLabelImage,
   GetNeckLabelImageConfig,
   GetNeckPrintImageConfig,
+  GetPrintLabelImageConfig,
 } from "../clothing/typings";
 import { css } from "@emotion/react";
 import { FC } from "react";
@@ -26,6 +27,11 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
   const neckPrintSizeImageConfig = GetNeckPrintImageConfig(
     customizations.neckLable?.label?.labelPrintSize,
     customizations.neckLable?.label?.labelSize
+  );
+
+  const clothPrintImageConfig = GetPrintLabelImageConfig(
+    customizations.print?.front?.PrintSize,
+    customizations.print?.front?.Placement
   );
 
   const ParentBox = styled(Box)(({ theme }) => ({
@@ -84,13 +90,17 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
             fill="none"
           ></rect>
           {/* Print Image */}
-          <image
-            href={customizations.print.front?.file.url}
-            x="650"
-            y="512"
-            width="705"
-            height="698.5023041474655"
-          ></image>
+          {customizations.print?.front == null ? (
+            <div></div>
+          ) : (
+            <image
+              href={customizations.print.front?.file.url}
+              x={clothPrintImageConfig.x}
+              y={clothPrintImageConfig.y}
+              width={clothPrintImageConfig.width}
+              height={clothPrintImageConfig.height}
+            ></image>
+          )}
         </svg>
       </ParentBox>
     </div>
