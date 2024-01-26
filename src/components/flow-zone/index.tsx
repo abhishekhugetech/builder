@@ -1,5 +1,10 @@
 import "reactflow/dist/style.css";
-import { Cloth } from "../clothing/typings";
+import {
+  Cloth,
+  GetNeckLabelImage,
+  GetNeckLabelImageConfig,
+  GetNeckPrintImageConfig,
+} from "../clothing/typings";
 import { css } from "@emotion/react";
 import { FC } from "react";
 import { Card, CardContent, Typography, Container, Box } from "@mui/material";
@@ -8,6 +13,21 @@ import { styled, createTheme, useTheme, ThemeProvider } from "@mui/system";
 import { shallow } from "zustand/shallow";
 
 const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
+  // Perform math and calculate the final positions of elments
+  // calcualte and set the images for different customizations
+  // Expose optionSelectedCallback({eventType, eventData}) -> use this to show print art border, zoom in neck label
+
+  const neckLableImage = GetNeckLabelImage(
+    customizations.neckLable?.label?.labelSize
+  );
+  const neckLableSizeImageConfig = GetNeckLabelImageConfig(
+    customizations.neckLable?.label?.labelSize
+  );
+  const neckPrintSizeImageConfig = GetNeckPrintImageConfig(
+    customizations.neckLable?.label?.labelPrintSize,
+    customizations.neckLable?.label?.labelSize
+  );
+
   const ParentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100vh", // Adjust as needed
@@ -40,19 +60,19 @@ const FlowZone: FC<Cloth> = ({ color, colors, customizations, id, name }) => {
           ></image>
           {/* Default neck label (TODO: Make it dynamic based on size) */}
           <image
-            href="https://design.sonsupply.com/_nuxt/neck-label-large.7d8dfb3c.png"
-            x="959"
-            y="165"
-            width="87"
-            height="65"
+            href={neckLableImage}
+            x={neckLableSizeImageConfig.x}
+            y={neckLableSizeImageConfig.y}
+            width={neckLableSizeImageConfig.width}
+            height={neckLableSizeImageConfig.height}
           ></image>
           {/* Neck Lable */}
           <image
             href={customizations.neckLable.label?.file.url}
-            x="971.07125"
-            y="175.42125"
-            width="62.8575"
-            height="44.1575"
+            x={neckPrintSizeImageConfig.x}
+            y={neckPrintSizeImageConfig.y}
+            width={neckPrintSizeImageConfig.width}
+            height={neckPrintSizeImageConfig.height}
           ></image>
           {/* Area around the Design make it dynamic */}
           <rect

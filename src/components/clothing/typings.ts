@@ -58,6 +58,100 @@ export enum NeckLabelSize {
   Large = "large",
 }
 
+export interface ImagePositionConfig {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
+export function GetNeckLabelImage(size: NeckLabelSize): string {
+  switch (size) {
+    case NeckLabelSize.Large: {
+      return "https://design.sonsupply.com/_nuxt/neck-label-large.7d8dfb3c.png";
+    }
+    case NeckLabelSize.Small: {
+      return "https://design.sonsupply.com/_nuxt/neck-label-small.628b8d54.png";
+    }
+  }
+  return "";
+}
+
+export function GetNeckLabelImageConfig(
+  size: NeckLabelSize
+): ImagePositionConfig {
+  switch (size) {
+    case NeckLabelSize.Large: {
+      return { x: 959, y: 165, width: 87, height: 65 };
+    }
+    case NeckLabelSize.Small: {
+      return { x: 959, y: 165, width: 87, height: 36 };
+    }
+  }
+  return { x: 0, y: 0, width: 0, height: 0 };
+}
+
+export function GetNeckPrintImageConfig(
+  printSize: NeckPrintSize,
+  lableSize: NeckLabelSize
+): ImagePositionConfig {
+  if (lableSize == NeckLabelSize.Large) {
+    switch (printSize) {
+      case NeckPrintSize.ExtraSmall: {
+        return { x: 987.71, y: 187.11, width: 29.58, height: 20.78 };
+      }
+      case NeckPrintSize.Small: {
+        return { x: 984.0125, y: 184.5125, width: 36.975, height: 25.975 };
+      }
+      case NeckPrintSize.Medium: {
+        return { x: 980.315, y: 181.915, width: 44.37, height: 31.17 };
+      }
+      case NeckPrintSize.Large: {
+        return { x: 971.07125, y: 175.42125, width: 62.8575, height: 44.1575 };
+      }
+      case NeckPrintSize.ExtraLarge: {
+        return { x: 965.525, y: 171.525, width: 73.95, height: 51.95 };
+      }
+    }
+  } else {
+    switch (printSize) {
+      case NeckPrintSize.ExtraSmall: {
+        return { x: 987.71, y: 178.41, width: 29.58, height: 9.18 };
+      }
+      case NeckPrintSize.Small: {
+        return { x: 984.0125, y: 177.2625, width: 36.975, height: 11.475 };
+      }
+      case NeckPrintSize.Medium: {
+        return { x: 980.315, y: 176.115, width: 44.37, height: 13.77 };
+      }
+      case NeckPrintSize.Large: {
+        return { x: 971.07125, y: 173.24625, width: 62.8575, height: 19.5075 };
+      }
+      case NeckPrintSize.ExtraLarge: {
+        return { x: 965.525, y: 171.525, width: 73.95, height: 22.95 };
+      }
+    }
+  }
+  return { x: 0, y: 0, width: 0, height: 0 };
+}
+
+/*
+<image href="" x="987.71" y="178.41" width="29.580000000000002" 
+height="9.18" class=""></image>
+
+<image href="" x="984.0125" y="177.2625" width="36.975" 
+height="11.475" class=""></image>
+
+<image href="" x="980.315" y="176.115" width="44.37" 
+height="13.77" class=""></image>
+
+<image href="" x="971.07125" y="173.24625" width="62.8575" 
+height="19.5075" class=""></image>
+
+<image href="" x="965.525" y="171.525" width="73.95" 
+height="22.95" class=""></image>
+*/
+
 export enum NeckPrintSize {
   ExtraSmall = "ExtraSmall",
   Small = "Small",
