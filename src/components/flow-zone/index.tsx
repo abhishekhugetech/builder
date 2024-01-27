@@ -9,7 +9,7 @@ import {
   GetPrintLabelImageConfig,
 } from "../clothing/typings";
 import { css } from "@emotion/react";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { Card, CardContent, Typography, Container, Box } from "@mui/material";
 import { styled, createTheme, useTheme, ThemeProvider } from "@mui/system";
 
@@ -26,8 +26,32 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   // Expose optionSelectedCallback({eventType, eventData}) -> use this to show print art border, zoom in neck label
 
   // Clothing zone customizations
-  const [isNeckLableSelected, setIsNeckLableSelected] = useState(false);
-  const [printBorderVisible, setPrintBorderVisible] = useState(false);
+  const svgRef = useRef(null);
+  const printBorderRef = useRef(null);
+
+  const neckLableUpdated = (isSelected) => {
+    const svg = svgRef.current;
+
+    if (isSelected && svg) {
+      const translateY = 0.4 * svg.clientWidth;
+
+      // Apply scale and translation transformation
+      svg.classList.replace("duration-500", "duration-700");
+      svg.style.transform = `scale(3) translate(0px, ${translateY}px)`;
+    } else {
+      svg.classList.replace("duration-700", "duration-500");
+      svg.style.transform = `none`;
+    }
+  };
+
+  const printBorderUpdated = (toShow) => {
+    const rect = printBorderRef.current;
+    if (toShow) {
+      rect.style.display = `block`;
+    } else {
+      rect.style.display = `none`;
+    }
+  };
 
   // Event Bus setup
   const [cus, setCus] = useState({});
@@ -39,18 +63,18 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       if (eventType == EventName.CustomizationSelected) {
         switch (payload.type) {
           case CustomizationTypes.NeckLabel: {
-            setIsNeckLableSelected(true);
+            neckLableUpdated(true);
             break;
           }
           case CustomizationTypes.Print: {
-            setPrintBorderVisible(true);
+            printBorderUpdated(true);
             break;
           }
         }
       } else {
         // reset Clothing zone customizations
-        setPrintBorderVisible(false);
-        setIsNeckLableSelected(false);
+        printBorderUpdated(false);
+        neckLableUpdated(false);
       }
     },
     [cus]
@@ -94,14 +118,8 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         <svg
           viewBox="0 0 2000 2222"
           xmlns="http://www.w3.org/2000/svg"
-          className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center transition-all delay-200 ${
-            isNeckLableSelected ? `duration-700` : `duration-500`
-          }`}
-          css={css`
-            transform: ${isNeckLableSelected
-              ? `scale(3) translate(0px, 285.469px)!important`
-              : `none`};
-          `}
+          ref={svgRef}
+          className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center transition-all delay-200 duration-500`}
         >
           <image
             href={cloth.colors.find((c) => c.name == cloth.color).front}
@@ -127,18 +145,16 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             height={neckPrintSizeImageConfig.height}
           ></image>
           {/* Area around the Design make it dynamic */}
-          {printBorderVisible ? (
-            <rect
-              x="650"
-              y="512"
-              width="705"
-              height="940"
-              stroke="#F06527"
-              fill="none"
-            ></rect>
-          ) : (
-            <div></div>
-          )}
+          <rect
+            x="650"
+            y="512"
+            width="705"
+            height="940"
+            stroke="#F06527"
+            fill="none"
+            display={`none`}
+            ref={printBorderRef}
+          ></rect>
           {/* Print Image */}
           {cloth.customizations.print?.front == null ? (
             <div></div>
