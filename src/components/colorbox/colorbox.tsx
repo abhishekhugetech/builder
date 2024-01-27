@@ -50,9 +50,8 @@ const CustomCard = ({ title, checked, color }) => {
     justifyContent: "space-between",
     backgroundColor: color, // Set your desired background color
     color: getContrastColor(color), // Set text color based on background color
-    borderRadius: "15px",
+    borderRadius: "8px",
     cursor: "pointer",
-    padding: theme.spacing(2),
     position: "relative",
     margin: "20px 32px",
     transition: "transform 0.5s", // Add a transition for the transform property
@@ -62,8 +61,8 @@ const CustomCard = ({ title, checked, color }) => {
   }));
 
   const Circle = styled(Box)(({ theme }) => ({
-    width: 30,
-    height: 30,
+    width: 22,
+    height: 22,
     borderRadius: "50%",
     border: `2px solid ${getContrastColor(color)}`,
     color: getContrastColor(color),
@@ -79,7 +78,7 @@ const CustomCard = ({ title, checked, color }) => {
   return (
     <StyledCard>
       <CardContent>
-        <Typography align={"center"} variant="h6" component="div">
+        <Typography align={"center"} component="div" fontSize={14}>
           {title}
         </Typography>
       </CardContent>

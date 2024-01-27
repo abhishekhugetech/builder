@@ -25,6 +25,9 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   // calcualte and set the images for different customizations
   // Expose optionSelectedCallback({eventType, eventData}) -> use this to show print art border, zoom in neck label
 
+  console.log(`*** FLOW ZONE *** rendered`);
+  const [selectedCustomization, setCustomization] = useState(null);
+
   // Clothing zone customizations
   const svgRef = useRef(null);
   const printBorderRef = useRef(null);
@@ -33,7 +36,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     const svg = svgRef.current;
 
     if (isSelected && svg) {
-      const translateY = 0.4 * svg.clientWidth;
+      const translateY = 0.35 * svg.clientWidth;
 
       // Apply scale and translation transformation
       svg.classList.replace("duration-500", "duration-700");
@@ -53,6 +56,21 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     }
   };
 
+  const updateCurrentPreview = () => {
+    switch (selectedCustomization) {
+      case CustomizationTypes.NeckLabel: {
+        neckLableUpdated(true);
+        break;
+      }
+      case CustomizationTypes.Print: {
+        printBorderUpdated(true);
+      }
+    }
+  };
+  setTimeout(() => {
+    updateCurrentPreview();
+  }, 200);
+
   // Event Bus setup
   const [cus, setCus] = useState({});
   useBus(
@@ -61,6 +79,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       const eventType = d.type;
       const payload = d.payload;
       if (eventType == EventName.CustomizationSelected) {
+        setCustomization(payload.type);
         switch (payload.type) {
           case CustomizationTypes.NeckLabel: {
             neckLableUpdated(true);
@@ -75,6 +94,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         // reset Clothing zone customizations
         printBorderUpdated(false);
         neckLableUpdated(false);
+        setCustomization(null);
       }
     },
     [cus]

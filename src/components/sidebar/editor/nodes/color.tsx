@@ -38,7 +38,7 @@ const ColorNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
           >
             <CustomCard
               color={color.color}
-              title={color.name.toLocaleUpperCase()}
+              title={color.name}
               checked={prop.cloth.color == color.name}
             />
           </div>
