@@ -4,6 +4,16 @@ export enum CustomizationTypes {
   NeckLabel = "NeckLabel",
 }
 
+export enum EventName {
+  CustomizationSelected = "CustomizationSelected",
+  CustomizationUnSelected = "CustomizationUnSelected",
+}
+
+export interface CustomizationEvent {
+  event: EventName;
+  data: {};
+}
+
 export interface ColorCustomization {
   type: CustomizationTypes;
   selectedColor?: string;

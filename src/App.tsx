@@ -64,7 +64,7 @@ function App() {
                 flex: 1;
               `}
             >
-              <FlowZone {...cloth} />
+              <FlowZone cloth={cloth} />
               <Sidebar
                 onUpdateCloth={onUpdateCloth}
                 onCustomizationUpdated={onCustomizationUpdated}

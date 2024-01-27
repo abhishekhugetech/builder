@@ -6,9 +6,11 @@ import { ChevronLeft } from "lucide-react";
 import {
   Cloth,
   CustomizationData,
+  EventName,
   getClothCustomization,
   getCustomizationOptions,
 } from "../clothing/typings";
+import { dispatch } from "use-bus";
 
 interface SidebarProps {
   cloth: Cloth;
@@ -38,6 +40,11 @@ const Sidebar: FC<SidebarProps> = ({
       cloth
     );
     console.log(`current cus`, currentCustomization);
+
+    dispatch({
+      type: EventName.CustomizationSelected,
+      payload: { type: currentCustomization.type },
+    });
 
     return (
       <div
@@ -84,6 +91,11 @@ const Sidebar: FC<SidebarProps> = ({
       </div>
     );
   }
+
+  dispatch({
+    type: EventName.CustomizationUnSelected,
+    payload: {},
+  });
 
   // If none selected, then we can show the Nodes panel so user can use them
   return (
