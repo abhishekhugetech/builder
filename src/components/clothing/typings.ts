@@ -323,6 +323,76 @@ export function getClothColors() {
         "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze.png",
       back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_BlueHaze_back.png",
     },
+    {
+      color: "#2a2c36",
+      name: "Deep Blue",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DeepBlue.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DeepBlue_back.png",
+    },
+    {
+      color: "#193368",
+      name: "YK Blue",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_YKBlue.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_YKBlue_back.png",
+    },
+    {
+      color: "#517299",
+      name: "Dive Blue",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DiveBlue.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_DiveBlue_back.png",
+    },
+    {
+      color: "#215252",
+      name: "Teal Fade",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_TealFade.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_TealFade_back.png",
+    },
+    {
+      color: "#50481a",
+      name: "Algae",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Algae.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Algae_back.png",
+    },
+    {
+      color: "#967849",
+      name: "Tamarind",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Tamarind.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Tamarind_back.png",
+    },
+    {
+      color: "#ccab90",
+      name: "Warm Sand",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_WarmSand.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_WarmSand_back.png",
+    },
+    {
+      color: "#bc8e34",
+      name: "Ecru",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Ecru.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Ecru_back.png",
+    },
+    {
+      color: "#d54019",
+      name: "Warm Red",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_WarmRed.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_WarmRed_back.png",
+    },
+    {
+      color: "#3f1f26",
+      name: "Burgundy",
+      front:
+        "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Burgundy.png",
+      back: "https://design.sonsupply.com/img/garments/cotton-t-shirt-short-sleeve/CottonT-Shirt_Burgundy_back.png",
+    },
   ] as Array<ClothColorPair>;
 }
 
