@@ -14,7 +14,7 @@ import { Card, CardContent, Typography, Container, Box } from "@mui/material";
 import { styled, createTheme, useTheme, ThemeProvider } from "@mui/system";
 
 import { shallow } from "zustand/shallow";
-import useBus from "use-bus";
+import useBus, { dispatch } from "use-bus";
 
 export interface FlowZoneProps {
   cloth: Cloth;
@@ -26,7 +26,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   // Expose optionSelectedCallback({eventType, eventData}) -> use this to show print art border, zoom in neck label
 
   console.log(`*** FLOW ZONE *** rendered`);
-  const [selectedCustomization, setCustomization] = useState(null);
+  const customization = useRef(null);
 
   // Clothing zone customizations
   const svgRef = useRef(null);
@@ -39,10 +39,12 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       const translateY = 0.35 * svg.clientWidth;
 
       // Apply scale and translation transformation
-      svg.classList.replace("duration-500", "duration-700");
+      svg.classList.remove("duration-500");
+      svg.classList.add("duration-700");
       svg.style.transform = `scale(3) translate(0px, ${translateY}px)`;
     } else {
-      svg.classList.replace("duration-700", "duration-500");
+      svg.classList.remove("duration-700");
+      svg.classList.add("duration-500");
       svg.style.transform = `none`;
     }
   };
@@ -57,19 +59,31 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   };
 
   const updateCurrentPreview = () => {
-    switch (selectedCustomization) {
+    switch (customization.current) {
       case CustomizationTypes.NeckLabel: {
-        neckLableUpdated(true);
+        const translateY = 0.35 * svgRef.current.clientWidth;
+        svgRef.current.style.transform = `scale(3) translate(0px, ${translateY}px)`;
+        setTimeout(() => {
+          const animClasList = ["transition-all", "delay-200", "duration-500"];
+          animClasList.forEach((c) => svgRef.current.classList.add(c));
+        }, 100);
         break;
       }
       case CustomizationTypes.Print: {
-        printBorderUpdated(true);
+        printBorderRef.current.style.display = `block`;
       }
     }
   };
   setTimeout(() => {
     updateCurrentPreview();
-  }, 200);
+  }, 0);
+
+  const removeAllCustomizations = () => {
+    dispatch({
+      type: EventName.CustomizationRemoveAll,
+      payload: {},
+    });
+  };
 
   // Event Bus setup
   const [cus, setCus] = useState({});
@@ -79,7 +93,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       const eventType = d.type;
       const payload = d.payload;
       if (eventType == EventName.CustomizationSelected) {
-        setCustomization(payload.type);
+        customization.current = payload.type;
         switch (payload.type) {
           case CustomizationTypes.NeckLabel: {
             neckLableUpdated(true);
@@ -94,7 +108,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         // reset Clothing zone customizations
         printBorderUpdated(false);
         neckLableUpdated(false);
-        setCustomization(null);
+        customization.current = null;
       }
     },
     [cus]
@@ -133,13 +147,14 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       css={css`
         overflow: hidden;
       `}
+      onClick={removeAllCustomizations}
     >
       <ParentBox>
         <svg
           viewBox="0 0 2000 2222"
           xmlns="http://www.w3.org/2000/svg"
           ref={svgRef}
-          className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center transition-all delay-200 duration-500`}
+          className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center`}
         >
           <image
             href={cloth.colors.find((c) => c.name == cloth.color).front}

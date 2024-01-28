@@ -10,7 +10,7 @@ import {
   getClothCustomization,
   getCustomizationOptions,
 } from "../clothing/typings";
-import { dispatch } from "use-bus";
+import useBus, { dispatch } from "use-bus";
 
 interface SidebarProps {
   cloth: Cloth;
@@ -27,6 +27,22 @@ const Sidebar: FC<SidebarProps> = ({
   const onDeselect = () => {
     setCustomization(null);
   };
+
+  // Event Bus setup
+  const [cus, setCus] = useState({});
+  useBus(
+    [EventName.CustomizationRemoveAll],
+    (d) => {
+      const eventType = d.type;
+      const payload = d.payload;
+      if (eventType == EventName.CustomizationRemoveAll) {
+        onDeselect();
+      } else {
+        // Do nothing
+      }
+    },
+    [cus]
+  );
 
   const isSingleNodeSelected = selectedCustomization != null;
   // the selected customization was not getting updated and not getting sent as

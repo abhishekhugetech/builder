@@ -7,6 +7,7 @@ export enum CustomizationTypes {
 export enum EventName {
   CustomizationSelected = "CustomizationSelected",
   CustomizationUnSelected = "CustomizationUnSelected",
+  CustomizationRemoveAll = "CustomizationRemoveAll",
 }
 
 export interface CustomizationEvent {
