@@ -132,15 +132,6 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                         label="Placement"
                         onChange={handlePlacementChange}
                       >
-                        <MenuItem value={ClothPrintPlacement.Left}>
-                          Left
-                        </MenuItem>
-                        <MenuItem value={ClothPrintPlacement.Middle}>
-                          Middle
-                        </MenuItem>
-                        <MenuItem value={ClothPrintPlacement.Right}>
-                          Right
-                        </MenuItem>
                         <MenuItem value={ClothPrintPlacement.TopLeft}>
                           Top Left
                         </MenuItem>
@@ -149,6 +140,15 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                         </MenuItem>
                         <MenuItem value={ClothPrintPlacement.TopRight}>
                           Top Right
+                        </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.Left}>
+                          Left
+                        </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.Middle}>
+                          Middle
+                        </MenuItem>
+                        <MenuItem value={ClothPrintPlacement.Right}>
+                          Right
                         </MenuItem>
                         <MenuItem value={ClothPrintPlacement.BottomLeft}>
                           Bottom Left
