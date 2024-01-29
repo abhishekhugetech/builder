@@ -15,6 +15,25 @@ const Header = () => {
   }, [saved]);
 
   return (
+    <header className="sticky top-0 z-50 flex h-10 items-center justify-between border-b border-neutral-300 bg-white">
+      <a href="/" className="flex h-full items-center px-4">
+        <span className="text-base font-bold uppercase">
+          Wearingo Workshop
+          <span className="hidden md:inline"> / Design</span>
+        </span>
+      </a>
+      <div className="flex h-full pr-2">
+        <a
+          // href="/contact"
+          className="_menuItem_mm5em_2 mr-2 sm:!flex"
+        >
+          Contact
+        </a>
+      </div>
+    </header>
+  );
+
+  return (
     <div
       css={css`
         padding: 16px 28px;
@@ -27,7 +46,7 @@ const Header = () => {
       `}
     >
       <p>Wearingo Clothing Workshop</p>
-      <Button loading={saving} onClick={()=>{}}>
+      <Button loading={saving} onClick={() => {}}>
         {saved ? "Saved" : "Save"}
       </Button>
     </div>

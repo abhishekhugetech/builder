@@ -26,6 +26,8 @@ const ColorNodeDataEditor: FC<CustomizationEditorProps> = (prop) => {
       <div
         css={css`
           margin-top: 30px;
+          max-height: 30vh;
+          overflow: scroll;
         `}
       >
         {prop.cloth.colors.map((color) => (

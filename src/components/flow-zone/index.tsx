@@ -130,6 +130,66 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     cloth.customizations.print?.front?.Placement
   );
 
+  return (
+    <div className="relative flex-1 overflow-hidden">
+      <div className="absolute inset-0 transition-all h-full delay-200 duration-500">
+        <svg
+          viewBox="0 0 2000 2222"
+          xmlns="http://www.w3.org/2000/svg"
+          ref={svgRef}
+          className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center`}
+        >
+          <image
+            href={cloth.colors.find((c) => c.name == cloth.color).front}
+            x="0"
+            y="0"
+            width="100%"
+            height="100%"
+          ></image>
+          {/* Default neck label (TODO: Make it dynamic based on size) */}
+          <image
+            href={neckLableImage}
+            x={neckLableSizeImageConfig.x}
+            y={neckLableSizeImageConfig.y}
+            width={neckLableSizeImageConfig.width}
+            height={neckLableSizeImageConfig.height}
+          ></image>
+          {/* Neck Lable */}
+          <image
+            href={cloth.customizations.neckLable.label?.file.url}
+            x={neckPrintSizeImageConfig.x}
+            y={neckPrintSizeImageConfig.y}
+            width={neckPrintSizeImageConfig.width}
+            height={neckPrintSizeImageConfig.height}
+          ></image>
+          {/* Area around the Design make it dynamic */}
+          <rect
+            x="650"
+            y="512"
+            width="705"
+            height="940"
+            stroke="#F06527"
+            fill="none"
+            display={`none`}
+            ref={printBorderRef}
+          ></rect>
+          {/* Print Image */}
+          {cloth.customizations.print?.front == null ? (
+            <div></div>
+          ) : (
+            <image
+              href={cloth.customizations.print.front?.file.url}
+              x={clothPrintImageConfig.x}
+              y={clothPrintImageConfig.y}
+              width={clothPrintImageConfig.width}
+              height={clothPrintImageConfig.height}
+            ></image>
+          )}
+        </svg>
+      </div>
+    </div>
+  );
+
   const ParentBox = styled(Box)(({ theme }) => ({
     width: "100%",
     height: "100vh", // Adjust as needed
