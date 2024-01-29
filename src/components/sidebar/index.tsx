@@ -64,6 +64,7 @@ const Sidebar: FC<SidebarProps> = ({
 
     return (
       <div
+        className="bg-white"
         css={css`
           border-left: 2px solid lightblue;
         `}
