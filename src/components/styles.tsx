@@ -1,4 +1,6 @@
 import { Global, css } from "@emotion/react";
+import bgImage from "../assets/img/bg.svg";
+import anchorSVG from "../assets/img/anchor.up.svg";
 
 export const Styles = () => (
   <Global
@@ -1763,7 +1765,7 @@ export const Styles = () => (
         box-shadow: 0 -2px 8px #00000021;
       }
       ._caret_1b6oa_2:after {
-        background-image: url(./anchor-up.cde14a40.svg);
+        background-image: url(${anchorSVG});
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: contain;
@@ -1988,7 +1990,7 @@ export const Styles = () => (
         }
       }
       ._textBackground_hrv9x_2 {
-        background-image: url(./bg.96ef156b.svg);
+        background-image: url(${bgImage});
         background-repeat: repeat;
         background-size: 100%;
       }
