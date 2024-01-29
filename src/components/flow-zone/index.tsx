@@ -36,7 +36,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     const svg = svgRef.current;
 
     if (isSelected && svg) {
-      const translateY = 0.35 * svg.clientWidth;
+      const translateY = 0.35 * svg.clientHeight;
 
       // Apply scale and translation transformation
       svg.classList.remove("duration-500");
@@ -61,7 +61,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   const updateCurrentPreview = () => {
     switch (customization.current) {
       case CustomizationTypes.NeckLabel: {
-        const translateY = 0.35 * svgRef.current.clientWidth;
+        const translateY = 0.35 * svgRef.current.clientHeight;
         svgRef.current.style.transform = `scale(3) translate(0px, ${translateY}px)`;
         setTimeout(() => {
           const animClasList = ["transition-all", "delay-200", "duration-500"];
