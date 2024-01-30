@@ -146,39 +146,22 @@ const FileUploadBox: FC<UploadProps> = (props) => {
       />
       {currentFile == null ? (
         <div>
-          <label htmlFor="fileInput">
-            <Box
-              border="2px dashed #888"
-              borderRadius={4}
-              p={2}
-              margin={"20px 32px"}
-              textAlign="center"
-              css={css`
-                cursor: pointer;
-              `}
-              position="relative"
-            >
-              <Box display="flex" justifyContent="center" alignItems="center">
-                <Box
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="center"
-                  borderRadius="50%"
-                  width={30}
-                  height={30}
-                  bgcolor="#f5f5f5"
-                >
-                  <AddCircleOutlineIcon
-                    fontSize="large"
-                    style={{ color: "#000" }}
-                  />
-                </Box>
-              </Box>
-              <Typography color={"#737373"} variant="body2" mt={1}>
-                Add a design file
-              </Typography>
-            </Box>
-          </label>
+          <button className="h-28 w-full justify-center rounded border border-dashed text-center transition-colors md:h-32 border-stone-300">
+            <label htmlFor="fileInput" className="cursor-pointer">
+              <div className="flex flex-col items-center transition-opacity">
+                <div className="mb-4 flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-xl">
+                  +
+                </div>
+                <span className="text-sm text-neutral-500">
+                  Add a design file (.png, .svg)
+                </span>
+              </div>
+            </label>
+          </button>
+          <p className="mt-4 text-[10px] md:mt-6">
+            Minimum image resolution: 1800x1800, maximum file size: 10MB.
+            Printing options include digital print and screen print.
+          </p>
         </div>
       ) : (
         <div>
@@ -194,6 +177,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
                 css={css`
                   font-size: 13px;
                 `}
+                className="mb-6 overflow-hidden text-ellipsis text-sm text-neutral-500"
               >
                 {currentFile.name}
               </Typography>

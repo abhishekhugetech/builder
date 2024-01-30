@@ -131,7 +131,10 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   );
 
   return (
-    <div className="relative flex-1 overflow-hidden">
+    <div
+      className="relative flex-1 overflow-hidden"
+      onClick={removeAllCustomizations}
+    >
       <div className="absolute inset-0 transition-all h-full delay-200 duration-500">
         <svg
           viewBox="0 0 2000 2222"
