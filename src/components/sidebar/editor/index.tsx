@@ -13,6 +13,7 @@ export interface CustomizationEditorProps {
   data: CustomizationData;
   onUpdated?: (customization: CustomizationData) => void;
   onUpdateCloth?: (cloth: Cloth) => void;
+  onDeselectCustomization?: () => void;
 }
 
 // A component which renders the specific editor for the selected node

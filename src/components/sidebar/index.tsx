@@ -24,7 +24,7 @@ const Sidebar: FC<SidebarProps> = ({
   onUpdateCloth,
 }) => {
   const [selectedCustomization, setCustomization] = useState(null);
-  const onDeselect = () => {
+  const onDeselectCustomization = () => {
     setCustomization(null);
   };
 
@@ -36,7 +36,7 @@ const Sidebar: FC<SidebarProps> = ({
       const eventType = d.type;
       const payload = d.payload;
       if (eventType == EventName.CustomizationRemoveAll) {
-        onDeselect();
+        onDeselectCustomization();
       } else {
         // Do nothing
       }
@@ -69,41 +69,12 @@ const Sidebar: FC<SidebarProps> = ({
           border-left: 2px solid lightblue;
         `}
       >
-        <div
-          css={css`
-            padding: 16px 28px;
-            border-bottom: 1px solid lightblue;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-          `}
-        >
-          <ChevronLeft
-            css={css`
-              cursor: pointer;
-              padding: 4px;
-              border-radius: 4px;
-
-              &:hover {
-                background: lightblue;
-              }
-            `}
-            size={24}
-            onClick={onDeselect}
-          />
-          <p
-            css={css`
-              margin-left: 8px;
-            `}
-          >
-            {selectedCustomization.type} Customization
-          </p>
-        </div>
         <CustomizationEditor
           cloth={cloth}
           data={currentCustomization}
           onUpdated={onCustomizationUpdated}
           onUpdateCloth={onUpdateCloth}
+          onDeselectCustomization={onDeselectCustomization}
         />
       </div>
     );

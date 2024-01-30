@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { css } from "@mui/material";
 
 import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
@@ -74,6 +75,36 @@ const CustomCard = ({ title, checked, color }) => {
     transform: "translateY(-50%)",
     right: theme.spacing(2),
   }));
+
+  return (
+    <button
+      className="_colorButton_ber8l_2"
+      css={css`
+        background-color: ${color};
+        color: ${getContrastColor(color)};
+      `}
+    >
+      <span className="text-xs">{title}</span>
+      <div className="flex h-6 w-6 items-center justify-center rounded-full border border-current">
+        {checked ? (
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 16 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.5 4.5C12.293 4.5 12.1055 4.584 11.9698 4.71975L6.75 9.93925L4.03025 7.21975C3.8945 7.084 3.707 7 3.5 7C3.08575 7 2.75 7.33575 2.75 7.75C2.75 7.957 2.834 8.1445 2.96975 8.28025L6.21975 11.5302C6.3555 11.666 6.543 11.75 6.75 11.75C6.957 11.75 7.1445 11.666 7.28025 11.5302L13.0302 5.78025C13.166 5.64475 13.25 5.457 13.25 5.25C13.25 4.83575 12.9143 4.5 12.5 4.5Z"
+              className="fill-current"
+            ></path>
+          </svg>
+        ) : (
+          <div></div>
+        )}
+      </div>
+    </button>
+  );
 
   return (
     <StyledCard>
