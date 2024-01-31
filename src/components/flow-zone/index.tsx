@@ -162,7 +162,14 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       className="relative flex-1 overflow-hidden"
       onClick={removeAllCustomizations}
     >
-      <div className="absolute inset-0 transition-all h-full delay-200 duration-500">
+      {/* Code for zooming into cloth with any customization selected */}
+      <div
+        className={`absolute inset-0 transition-all ${
+          customization.current == null
+            ? `h-full delay-200 duration-500 `
+            : `h-48 duration-300 md:h-full`
+        }`}
+      >
         <svg
           viewBox="0 0 2000 2222"
           xmlns="http://www.w3.org/2000/svg"
