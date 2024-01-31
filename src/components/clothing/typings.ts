@@ -427,7 +427,10 @@ export function getClothCustomization(type: CustomizationTypes, cloth: Cloth) {
 
 export function getCustomizationOptions(cloth: Cloth) {
   const allCusts = Array<CustomizationData>();
-  const keys = Object.keys(cloth.customizations);
+  const ignoredCustomizations = ["neckLable"];
+  const keys = Object.keys(cloth.customizations).filter(
+    (d) => ignoredCustomizations.indexOf(d) === -1
+  );
 
   for (const key of keys) {
     allCusts.push(cloth.customizations[key]);
