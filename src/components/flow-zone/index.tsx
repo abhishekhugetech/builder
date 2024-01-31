@@ -30,6 +30,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
 
   // Clothing zone customizations
   const svgRef = useRef(null);
+  const zoneSVGContainer = useRef(null);
   const printBorderRef = useRef(null);
   const [isFronSelected, setFrontSelected] = useState(true);
 
@@ -89,6 +90,40 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     });
   };
 
+  const onCustomizationSelected = (type) => {
+    // Set current customization
+    customization.current = type;
+    // Custom handling for customizations
+    switch (type) {
+      case CustomizationTypes.NeckLabel: {
+        neckLableUpdated(true);
+        break;
+      }
+      case CustomizationTypes.Print: {
+        printBorderUpdated(true);
+        break;
+      }
+    }
+    // Generic handling of customizations
+    // Set zoom level for Clothing Zone
+    const classToAdd = ["h-48", "duration-300", "md:h-full"];
+    const classToRemove = ["h-full", "delay-200", "duration-500"];
+    classToAdd.map((d) => zoneSVGContainer.current.classList.add(d));
+    classToRemove.map((d) => zoneSVGContainer.current.classList.remove(d));
+  };
+
+  const onCustomizationRemoved = () => {
+    setFrontSelected(true);
+    printBorderUpdated(false);
+    neckLableUpdated(false);
+    customization.current = null;
+    // Reset zoom for clothing zone
+    const classToAdd = ["h-full", "delay-200", "duration-500"];
+    const classToRemove = ["h-48", "duration-300", "md:h-full"];
+    classToAdd.map((d) => zoneSVGContainer.current.classList.add(d));
+    classToRemove.map((d) => zoneSVGContainer.current.classList.remove(d));
+  };
+
   // Event Bus setup, Registering all the events that can be received here
   const [cus, setCus] = useState({});
   useBus(
@@ -102,27 +137,14 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
       const eventType = d.type;
       const payload = d.payload;
       if (eventType == EventName.CustomizationSelected) {
-        customization.current = payload.type;
-        switch (payload.type) {
-          case CustomizationTypes.NeckLabel: {
-            neckLableUpdated(true);
-            break;
-          }
-          case CustomizationTypes.Print: {
-            printBorderUpdated(true);
-            break;
-          }
-        }
+        onCustomizationSelected(payload.type);
       } else if (eventType == EventName.CustomizationPrintFrontSelected) {
         setFrontSelected(true);
       } else if (eventType == EventName.CustomizationPrintBackSelected) {
         setFrontSelected(false);
       } else {
         // reset Clothing zone customizations
-        setFrontSelected(true);
-        printBorderUpdated(false);
-        neckLableUpdated(false);
-        customization.current = null;
+        onCustomizationRemoved();
       }
     },
     [cus]
@@ -164,11 +186,8 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     >
       {/* Code for zooming into cloth with any customization selected */}
       <div
-        className={`absolute inset-0 transition-all ${
-          customization.current == null
-            ? `h-full delay-200 duration-500 `
-            : `h-48 duration-300 md:h-full`
-        }`}
+        className={`absolute inset-0 transition-all h-full delay-200 duration-500`}
+        ref={zoneSVGContainer}
       >
         <svg
           viewBox="0 0 2000 2222"

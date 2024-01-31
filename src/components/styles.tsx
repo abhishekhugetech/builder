@@ -1753,7 +1753,7 @@ export const Styles = () => (
       }
       ._panel_7tbke_2 {
         bottom: 0;
-        height: calc(100% - 25rem);
+        height: calc(100% - 12rem);
         top: auto;
       }
       @media (min-width: 768px) {
