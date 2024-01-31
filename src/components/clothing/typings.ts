@@ -8,6 +8,8 @@ export enum EventName {
   CustomizationSelected = "CustomizationSelected",
   CustomizationUnSelected = "CustomizationUnSelected",
   CustomizationRemoveAll = "CustomizationRemoveAll",
+  CustomizationPrintFrontSelected = "CustomizationPrintFrontSelected",
+  CustomizationPrintBackSelected = "CustomizationPrintBackSelected",
 }
 
 export interface CustomizationEvent {
@@ -262,12 +264,16 @@ export type CustomizationData =
   | PrintCustomization
   | NeckLabelCustomization;
 
-export function getFrontFile(data: CustomizationData) {
+export function getFile(data: CustomizationData, isFront: boolean) {
   let currentFile: CustomizationFile = null;
   switch (data.type) {
     case CustomizationTypes.Print: {
       const a = data as PrintCustomization;
-      currentFile = a.front?.file;
+      if (isFront) {
+        currentFile = a.front?.file;
+      } else {
+        currentFile = a.back?.file;
+      }
       break;
     }
     case CustomizationTypes.NeckLabel: {

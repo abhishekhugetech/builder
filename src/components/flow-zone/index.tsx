@@ -31,6 +31,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   // Clothing zone customizations
   const svgRef = useRef(null);
   const printBorderRef = useRef(null);
+  const [isFronSelected, setFrontSelected] = useState(true);
 
   const neckLableUpdated = (isSelected) => {
     const svg = svgRef.current;
@@ -49,6 +50,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     }
   };
 
+  // printBorderUpdated makes the print border hidden/visible
   const printBorderUpdated = (toShow) => {
     const rect = printBorderRef.current;
     if (toShow) {
@@ -58,7 +60,9 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     }
   };
 
-  const updateCurrentPreview = () => {
+  // onCreateView sets up the current view in ClothingZone based on the last
+  // customization selected, used to restore the UI as it was before the re-render
+  const onCreateView = () => {
     switch (customization.current) {
       case CustomizationTypes.NeckLabel: {
         const translateY = 0.35 * svgRef.current.clientHeight;
@@ -75,7 +79,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     }
   };
   setTimeout(() => {
-    updateCurrentPreview();
+    onCreateView();
   }, 0);
 
   const removeAllCustomizations = () => {
@@ -85,10 +89,15 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     });
   };
 
-  // Event Bus setup
+  // Event Bus setup, Registering all the events that can be received here
   const [cus, setCus] = useState({});
   useBus(
-    [EventName.CustomizationSelected, EventName.CustomizationUnSelected],
+    [
+      EventName.CustomizationSelected,
+      EventName.CustomizationUnSelected,
+      EventName.CustomizationPrintFrontSelected,
+      EventName.CustomizationPrintBackSelected,
+    ],
     (d) => {
       const eventType = d.type;
       const payload = d.payload;
@@ -104,8 +113,13 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             break;
           }
         }
+      } else if (eventType == EventName.CustomizationPrintFrontSelected) {
+        setFrontSelected(true);
+      } else if (eventType == EventName.CustomizationPrintBackSelected) {
+        setFrontSelected(false);
       } else {
         // reset Clothing zone customizations
+        setFrontSelected(true);
         printBorderUpdated(false);
         neckLableUpdated(false);
         customization.current = null;
@@ -125,10 +139,23 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
     cloth.customizations.neckLable?.label?.labelSize
   );
 
-  const clothPrintImageConfig = GetPrintLabelImageConfig(
-    cloth.customizations.print?.front?.PrintSize,
-    cloth.customizations.print?.front?.Placement
-  );
+  const currentColor = cloth.colors.find((c) => c.name == cloth.color);
+
+  let clothPrintImageConfig = null;
+  let printFile = null;
+  if (isFronSelected) {
+    printFile = cloth.customizations.print?.front;
+    clothPrintImageConfig = GetPrintLabelImageConfig(
+      cloth.customizations.print?.front?.PrintSize,
+      cloth.customizations.print?.front?.Placement
+    );
+  } else {
+    printFile = cloth.customizations.print?.back;
+    clothPrintImageConfig = GetPrintLabelImageConfig(
+      cloth.customizations.print?.back?.PrintSize,
+      cloth.customizations.print?.back?.Placement
+    );
+  }
 
   return (
     <div
@@ -143,28 +170,37 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
           className={`customizer-design-preview !absolute inset-0 h-full w-full object-contain object-center`}
         >
           <image
-            href={cloth.colors.find((c) => c.name == cloth.color).front}
+            href={isFronSelected ? currentColor.front : currentColor.back}
             x="0"
             y="0"
             width="100%"
             height="100%"
           ></image>
           {/* Default neck label (TODO: Make it dynamic based on size) */}
-          <image
-            href={neckLableImage}
-            x={neckLableSizeImageConfig.x}
-            y={neckLableSizeImageConfig.y}
-            width={neckLableSizeImageConfig.width}
-            height={neckLableSizeImageConfig.height}
-          ></image>
+          {isFronSelected ? (
+            <image
+              href={neckLableImage}
+              x={neckLableSizeImageConfig.x}
+              y={neckLableSizeImageConfig.y}
+              width={neckLableSizeImageConfig.width}
+              height={neckLableSizeImageConfig.height}
+            ></image>
+          ) : (
+            <image></image>
+          )}
           {/* Neck Lable */}
-          <image
-            href={cloth.customizations.neckLable.label?.file.url}
-            x={neckPrintSizeImageConfig.x}
-            y={neckPrintSizeImageConfig.y}
-            width={neckPrintSizeImageConfig.width}
-            height={neckPrintSizeImageConfig.height}
-          ></image>
+          {isFronSelected ? (
+            <image
+              href={cloth.customizations.neckLable.label?.file.url}
+              x={neckPrintSizeImageConfig.x}
+              y={neckPrintSizeImageConfig.y}
+              width={neckPrintSizeImageConfig.width}
+              height={neckPrintSizeImageConfig.height}
+            ></image>
+          ) : (
+            <image></image>
+          )}
+
           {/* Area around the Design make it dynamic */}
           <rect
             x="650"
@@ -177,11 +213,11 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             ref={printBorderRef}
           ></rect>
           {/* Print Image */}
-          {cloth.customizations.print?.front == null ? (
+          {printFile == null ? (
             <div></div>
           ) : (
             <image
-              href={cloth.customizations.print.front?.file.url}
+              href={printFile?.file.url}
               x={clothPrintImageConfig.x}
               y={clothPrintImageConfig.y}
               width={clothPrintImageConfig.width}

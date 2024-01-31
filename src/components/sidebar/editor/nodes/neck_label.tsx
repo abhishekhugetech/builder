@@ -7,7 +7,7 @@ import {
   NeckLabelCustomization,
   NeckLabelSize,
   NeckPrintSize,
-  getFrontFile,
+  getFile,
 } from "../../../clothing/typings";
 import { CustomizationEditorProps } from "..";
 import FileUploadBox from "../../../fileupload/fileupload";
@@ -43,7 +43,7 @@ const NeckLabelNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
     newData.label.labelPrintSize = e.target.value;
     props.onUpdated(newData);
   };
-  const currentFile: CustomizationFile = getFrontFile(props.data);
+  const currentFile: CustomizationFile = getFile(props.data, true);
 
   return (
     <div
@@ -56,6 +56,7 @@ const NeckLabelNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
       <p>Add your own personalized neck label</p>
       <div>
         <FileUploadBox
+          isFront={true}
           data={props.data}
           onUploadError={(err: UploadError) => {
             alert(err.message);

@@ -15,6 +15,7 @@ export interface UploadProps {
   onUploadSuccess: (file: UploadResponse) => void;
   onFileRemoved: () => void;
   data: CustomizationData;
+  isFront: boolean;
 }
 
 import { Button, Slider } from "@mui/material";
@@ -25,7 +26,7 @@ import {
   CustomizationTypes,
   NeckLabelCustomization,
   PrintCustomization,
-  getFrontFile,
+  getFile,
 } from "../clothing/typings";
 
 const FileUploadBox: FC<UploadProps> = (props) => {
@@ -132,7 +133,7 @@ const FileUploadBox: FC<UploadProps> = (props) => {
     inputRef.current.click();
   };
 
-  const currentFile: CustomizationFile = getFrontFile(props.data);
+  const currentFile: CustomizationFile = getFile(props.data, props.isFront);
 
   return (
     <div>

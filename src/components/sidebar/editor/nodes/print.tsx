@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useCallback } from "react";
+import { ChangeEvent, FC, useCallback, useState } from "react";
 import { css } from "@emotion/react";
 import {
   ClothColorPair,
@@ -7,8 +7,9 @@ import {
   CustomizationData,
   CustomizationFile,
   CustomizationTypes,
+  EventName,
   PrintCustomization,
-  getFrontFile,
+  getFile,
 } from "../../../clothing/typings";
 import { CustomizationEditorProps } from "..";
 import FileUploadBox from "../../../fileupload/fileupload";
@@ -25,26 +26,56 @@ import {
   MenuItem,
 } from "@mui/material";
 import { styled } from "@mui/system";
+import { dispatch } from "use-bus";
 
 const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
   const printCustomization = props.data as PrintCustomization;
+  const [isFrontSelected, setFrontSelected] = useState(true);
+  const frontFile: CustomizationFile = getFile(props.data, true);
+  const backFile: CustomizationFile = getFile(props.data, false);
+
+  // handlePlacementChange updates the placement in current selected file and updates it
   const handlePlacementChange = (e) => {
     const print = props.data as PrintCustomization;
     let newData = {
       ...print,
     };
-    newData.front.Placement = e.target.value;
+    if (isFrontSelected) {
+      newData.front.Placement = e.target.value;
+    } else {
+      newData.back.Placement = e.target.value;
+    }
     props.onUpdated(newData);
   };
+
+  // handlePlacementSizeChange updates the placement size in the current selected file and updates it
   const handlePlacementSizeChange = (e) => {
     const print = props.data as PrintCustomization;
     let newData = {
       ...print,
     };
-    newData.front.PrintSize = e.target.value;
+    if (isFrontSelected) {
+      newData.front.PrintSize = e.target.value;
+    } else {
+      newData.back.PrintSize = e.target.value;
+    }
     props.onUpdated(newData);
   };
-  const currentFile: CustomizationFile = getFrontFile(props.data);
+
+  // setCurrentPrintPreview sets the state *isFrontSelected* to update the
+  // current UI and sends events to update the ClothingZone
+  const setCurrentPrintPreview = (isFront) => {
+    setFrontSelected(isFront);
+    // Dispatch event to Update ClothingZone Preview
+    dispatch({
+      type: `${
+        isFront
+          ? EventName.CustomizationPrintFrontSelected
+          : EventName.CustomizationPrintBackSelected
+      }`,
+      payload: {},
+    });
+  };
 
   return (
     <div className="_panel_7tbke_2 customizer-side-panel flex w-full flex-col border-t border-neutral-200 bg-white md:w-96 md:flex-initial md:overflow-hidden md:border-l md:border-t-0 md:border-neutral-300 absolute inset-y-0 right-0">
@@ -77,70 +108,125 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
       </div>
       <div className="flex-1 overflow-auto">
         <div className="border-b border-neutral-300 p-6 md:p-8">
-          <div
-            className="grid grid-cols-2 gap-4 pb-6"
-            css={css`
-              display: none;
-            `}
-          >
-            <button className="h-12 rounded text-sm transition-colors bg-neutral-300">
+          <div className="grid grid-cols-2 gap-4 pb-6">
+            <button
+              className={`h-12 rounded text-sm transition-colors ${
+                isFrontSelected
+                  ? "bg-neutral-300"
+                  : `bg-neutral-100 text-neutral-500 hover:bg-neutral-200`
+              }`}
+              onClick={() => {
+                setCurrentPrintPreview(true);
+              }}
+            >
               Front
             </button>
-            <button className="h-12 rounded text-sm transition-colors bg-neutral-100 text-neutral-500 hover:bg-neutral-200">
+            <button
+              className={`h-12 rounded text-sm transition-colors ${
+                isFrontSelected
+                  ? "bg-neutral-100 text-neutral-500 hover:bg-neutral-200"
+                  : `bg-neutral-300`
+              }`}
+              onClick={() => {
+                setCurrentPrintPreview(false);
+              }}
+            >
               Back
             </button>
           </div>
           <div className="relative">
-            <FileUploadBox
-              data={props.data}
-              onUploadError={(err: UploadError) => {
-                alert(err.message);
-              }}
-              onFileRemoved={() => {
-                const print = props.data as PrintCustomization;
-                const newData = {
-                  ...print,
-                  front: null,
-                  back: null,
-                };
-                props.onUpdated(newData);
-              }}
-              onUploadSuccess={(res: UploadResponse) => {
-                const print = props.data as PrintCustomization;
-                const newData = {
-                  ...print,
-                  front: {
-                    file: {
-                      url: res.url,
-                      format: res.extension,
-                      name: res.fileName,
-                    },
-                    Placement: ClothPrintPlacement.Middle,
-                    PrintSize: 100,
-                  } as ClothPrint,
-                };
-                props.onUpdated(newData);
-              }}
-            />
+            {isFrontSelected ? (
+              // Front print upload box
+              <FileUploadBox
+                isFront={true}
+                data={props.data}
+                onUploadError={(err: UploadError) => {
+                  alert(err.message);
+                }}
+                onFileRemoved={() => {
+                  const print = props.data as PrintCustomization;
+                  const newData = {
+                    ...print,
+                    front: null,
+                  };
+                  props.onUpdated(newData);
+                }}
+                onUploadSuccess={(res: UploadResponse) => {
+                  const print = props.data as PrintCustomization;
+                  const newData = {
+                    ...print,
+                    front: {
+                      file: {
+                        url: res.url,
+                        format: res.extension,
+                        name: res.fileName,
+                      },
+                      Placement: ClothPrintPlacement.Middle,
+                      PrintSize: 100,
+                    } as ClothPrint,
+                  };
+                  props.onUpdated(newData);
+                }}
+              />
+            ) : (
+              // Back print Upload box
+              <FileUploadBox
+                isFront={false}
+                data={props.data}
+                onUploadError={(err: UploadError) => {
+                  alert(err.message);
+                }}
+                onFileRemoved={() => {
+                  const print = props.data as PrintCustomization;
+                  const newData = {
+                    ...print,
+                    back: null,
+                  };
+                  props.onUpdated(newData);
+                }}
+                onUploadSuccess={(res: UploadResponse) => {
+                  const print = props.data as PrintCustomization;
+                  const newData = {
+                    ...print,
+                    back: {
+                      file: {
+                        url: res.url,
+                        format: res.extension,
+                        name: res.fileName,
+                      },
+                      Placement: ClothPrintPlacement.Middle,
+                      PrintSize: 100,
+                    } as ClothPrint,
+                  };
+                  props.onUpdated(newData);
+                }}
+              />
+            )}
           </div>
 
           {/* Add Slider */}
 
-          {currentFile == null ? (
-            <Box></Box>
-          ) : (
+          {(isFrontSelected && frontFile != null) ||
+          (!isFrontSelected && backFile != null) ? (
             <Box>
               <Box>
                 <Box margin={`6px 32px`}>
                   <Box display={`flex`} justifyContent={`space-between`}>
                     <Typography>Print Width</Typography>
                     <Typography>
-                      {printCustomization.front?.PrintSize} %
+                      {isFrontSelected
+                        ? printCustomization.front?.PrintSize
+                        : printCustomization.back?.PrintSize}
+                      %
                     </Typography>
                   </Box>
                   <Box margin={`10px 0px`}>
                     <Slider
-                      value={printCustomization.front?.PrintSize}
+                      value={
+                        isFrontSelected
+                          ? printCustomization.front?.PrintSize
+                          : printCustomization.back?.PrintSize
+                      }
                       min={1}
                       max={100}
                       color="warning"
@@ -164,7 +250,11 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                         <Select
                           labelId="print-label-placement-label"
                           id="print-label-placement"
-                          value={printCustomization.front?.Placement}
+                          value={
+                            isFrontSelected
+                              ? printCustomization.front?.Placement
+                              : printCustomization.back?.Placement
+                          }
                           label="Placement"
                           onChange={handlePlacementChange}
                         >
@@ -202,6 +292,8 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                 </Box>
               </Box>
             </Box>
+          ) : (
+            <Box></Box>
           )}
         </div>
         <div
@@ -280,6 +372,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
       </div>
       <div>
         <FileUploadBox
+          isFront={true}
           data={props.data}
           onUploadError={(err: UploadError) => {
             alert(err.message);
@@ -310,7 +403,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
             props.onUpdated(newData);
           }}
         />
-        {currentFile == null ? (
+        {frontFile == null ? (
           <Box></Box>
         ) : (
           <Box>
