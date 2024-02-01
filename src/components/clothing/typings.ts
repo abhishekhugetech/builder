@@ -66,11 +66,11 @@ export function getDefaultPrintCustomization() {
     type: CustomizationTypes.Print,
     front: {
       file: {
-        format: "svg",
-        url: "https://storage.googleapis.com/son_supply_backend/uploads/83667dd1-09cb-46e5-bcef-52d2764ac330-1705131675065-3491358.svg",
-        name: "design.svg",
+        format: "png",
+        url: "https://pbs.twimg.com/media/FrjeTUUX0AEI45z.png",
+        name: "design.png",
       },
-      PrintSize: 50,
+      PrintSize: 100,
       Placement: ClothPrintPlacement.Middle,
     },
     back: null,
@@ -113,6 +113,88 @@ export function GetNeckLabelImageConfig(
     }
   }
   return { x: 0, y: 0, width: 0, height: 0 };
+}
+
+function getImagePositionConfig(
+  parentX,
+  parentY,
+  parentWidth,
+  parentHeight,
+  innerWidth,
+  innerHeight,
+  placement: ClothPrintPlacement
+): ImagePositionConfig {
+  // Calculate x and y coordinates based on placement
+  let x, y;
+  switch (placement) {
+    case ClothPrintPlacement.TopLeft:
+      x = parentX;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.TopRight:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.TopMiddle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY;
+      break;
+    case ClothPrintPlacement.Right:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.Left:
+      x = parentX;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.Middle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY + (parentHeight - innerHeight) / 2;
+      break;
+    case ClothPrintPlacement.BottomRight:
+      x = parentX + parentWidth - innerWidth;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    case ClothPrintPlacement.BottomMiddle:
+      x = parentX + (parentWidth - innerWidth) / 2;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    case ClothPrintPlacement.BottomLeft:
+      x = parentX;
+      y = parentY + parentHeight - innerHeight;
+      break;
+    default:
+      // Default to top left placement
+      x = parentX;
+      y = parentY;
+  }
+
+  return { x, y, width: innerWidth, height: innerHeight };
+}
+
+export function GetLogoImageConfig(
+  percent: number,
+  placement: ClothPrintPlacement
+): ImagePositionConfig {
+  // Parent box dimensions
+  const parentX = 650;
+  const parentY = 512;
+  const parentWidth = 705;
+  const parentHeight = 200;
+
+  // Calculate inner box dimensions based on percentage
+  const innerWidth = 200 * (percent / 100);
+  const innerHeight = 200 * (percent / 100);
+
+  return getImagePositionConfig(
+    parentX,
+    parentY,
+    parentWidth,
+    parentHeight,
+    innerWidth,
+    innerHeight,
+    placement
+  );
 }
 
 export function GetNeckPrintImageConfig(
@@ -173,52 +255,15 @@ export function GetPrintLabelImageConfig(
   const innerWidth = parentWidth * (percent / 100);
   const innerHeight = parentHeight * (percent / 100);
 
-  // Calculate x and y coordinates based on placement
-  let x, y;
-  switch (placement) {
-    case ClothPrintPlacement.TopLeft:
-      x = parentX;
-      y = parentY;
-      break;
-    case ClothPrintPlacement.TopRight:
-      x = parentX + parentWidth - innerWidth;
-      y = parentY;
-      break;
-    case ClothPrintPlacement.TopMiddle:
-      x = parentX + (parentWidth - innerWidth) / 2;
-      y = parentY;
-      break;
-    case ClothPrintPlacement.Right:
-      x = parentX + parentWidth - innerWidth;
-      y = parentY + (parentHeight - innerHeight) / 2;
-      break;
-    case ClothPrintPlacement.Left:
-      x = parentX;
-      y = parentY + (parentHeight - innerHeight) / 2;
-      break;
-    case ClothPrintPlacement.Middle:
-      x = parentX + (parentWidth - innerWidth) / 2;
-      y = parentY + (parentHeight - innerHeight) / 2;
-      break;
-    case ClothPrintPlacement.BottomRight:
-      x = parentX + parentWidth - innerWidth;
-      y = parentY + parentHeight - innerHeight;
-      break;
-    case ClothPrintPlacement.BottomMiddle:
-      x = parentX + (parentWidth - innerWidth) / 2;
-      y = parentY + parentHeight - innerHeight;
-      break;
-    case ClothPrintPlacement.BottomLeft:
-      x = parentX;
-      y = parentY + parentHeight - innerHeight;
-      break;
-    default:
-      // Default to top left placement
-      x = parentX;
-      y = parentY;
-  }
-
-  return { x, y, width: innerWidth, height: innerHeight };
+  return getImagePositionConfig(
+    parentX,
+    parentY,
+    parentWidth,
+    parentHeight,
+    innerWidth,
+    innerHeight,
+    placement
+  );
 }
 
 export enum NeckPrintSize {
@@ -264,9 +309,13 @@ export function getDefaultNeckLabelCustomization() {
 export function getDefaultLogoCustomization() {
   return {
     type: CustomizationTypes.Logo,
-    file: null,
-    Placement: null,
-    PrintSize: null,
+    file: {
+      format: "png",
+      name: "google logo.png",
+      url: "https://white.logodownload.org/wp-content/uploads/2020/11/google-white-logo-1.png",
+    },
+    Placement: ClothPrintPlacement.Right,
+    PrintSize: 100,
   } as LogoCustomization;
 }
 
@@ -470,7 +519,7 @@ export function getDefaultCloth() {
   return {
     id: "some_cloth_id",
     name: "Basic TShirt",
-    color: "Black",
+    color: "YK Blue",
     colors: getClothColors(),
     customizations: {
       color: getDefaultColorCustomization(),

@@ -3,6 +3,7 @@ import {
   Cloth,
   CustomizationTypes,
   EventName,
+  GetLogoImageConfig,
   GetNeckLabelImage,
   GetNeckLabelImageConfig,
   GetNeckPrintImageConfig,
@@ -32,6 +33,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   const svgRef = useRef(null);
   const zoneSVGContainer = useRef(null);
   const printBorderRef = useRef(null);
+  const logoBorderRef = useRef(null);
   const [isFronSelected, setFrontSelected] = useState(true);
 
   const neckLableUpdated = (isSelected) => {
@@ -54,6 +56,16 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   // printBorderUpdated makes the print border hidden/visible
   const printBorderUpdated = (toShow) => {
     const rect = printBorderRef.current;
+    if (toShow) {
+      rect.style.display = `block`;
+    } else {
+      rect.style.display = `none`;
+    }
+  };
+
+  // logoBorderUpdated makes the logo border hidden/visible
+  const logoBorderUpdated = (toShow) => {
+    const rect = logoBorderRef.current;
     if (toShow) {
       rect.style.display = `block`;
     } else {
@@ -103,6 +115,10 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         printBorderUpdated(true);
         break;
       }
+      case CustomizationTypes.Logo: {
+        logoBorderUpdated(true);
+        break;
+      }
     }
     // Generic handling of customizations
     // Set zoom level for Clothing Zone
@@ -115,6 +131,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   const onCustomizationRemoved = () => {
     setFrontSelected(true);
     printBorderUpdated(false);
+    logoBorderUpdated(false);
     neckLableUpdated(false);
     customization.current = null;
     // Reset zoom for clothing zone
@@ -159,6 +176,10 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   const neckPrintSizeImageConfig = GetNeckPrintImageConfig(
     cloth.customizations.neckLable?.label?.labelPrintSize,
     cloth.customizations.neckLable?.label?.labelSize
+  );
+  const logoImageConfig = GetLogoImageConfig(
+    cloth.customizations.logo?.PrintSize,
+    cloth.customizations.logo?.Placement
   );
 
   const currentColor = cloth.colors.find((c) => c.name == cloth.color);
@@ -226,6 +247,18 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
           ) : (
             <image></image>
           )}
+          {/* Logo */}
+          {isFronSelected && cloth.customizations.logo?.file?.url != null ? (
+            <image
+              href={cloth.customizations.logo?.file.url}
+              x={logoImageConfig.x}
+              y={logoImageConfig.y}
+              width={logoImageConfig.width}
+              height={logoImageConfig.height}
+            ></image>
+          ) : (
+            <image></image>
+          )}
 
           {/* Area around the Design make it dynamic */}
           <rect
@@ -237,6 +270,17 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             fill="none"
             display={`none`}
             ref={printBorderRef}
+          ></rect>
+          {/* Logo Border */}
+          <rect
+            x="650"
+            y="512"
+            width="705"
+            height="200"
+            stroke="#F06527"
+            fill="none"
+            display={`none`}
+            ref={logoBorderRef}
           ></rect>
           {/* Print Image */}
           {printFile == null ? (

@@ -103,7 +103,7 @@ const LogoNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                       format: res.extension,
                       name: res.fileName,
                     },
-                    Placement: ClothPrintPlacement.Middle,
+                    Placement: ClothPrintPlacement.Right,
                     PrintSize: 100,
                   } as LogoCustomization;
                   props.onUpdated(newData);
