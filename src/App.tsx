@@ -5,6 +5,7 @@ import {
   Cloth,
   CustomizationData,
   CustomizationTypes,
+  LogoCustomization,
   getDefaultCloth,
 } from "./components/clothing/typings";
 import { Styles } from "./components/styles";
@@ -31,7 +32,7 @@ function App() {
         break;
       }
       case CustomizationTypes.Logo: {
-        cloth.customizations.logo = customization;
+        cloth.customizations.logo = customization as LogoCustomization;
         break;
       }
     }
