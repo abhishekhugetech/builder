@@ -7,6 +7,7 @@ import {
   CustomizationTypes,
 } from "../../clothing/typings";
 import { FC } from "react";
+import LogoNodeDataEditor from "./nodes/logo";
 
 export interface CustomizationEditorProps {
   cloth: Cloth;
@@ -24,6 +25,8 @@ const CustomizationEditor: FC<CustomizationEditorProps> = (data) => {
       return <PrintNodeDataEditor key={data.data.type} {...data} />;
     case CustomizationTypes.Color:
       return <ColorNodeDataEditor key={data.data.type} {...data} />;
+    case CustomizationTypes.Logo:
+      return <LogoNodeDataEditor key={data.data.type} {...data} />;
     case CustomizationTypes.NeckLabel:
       return <NeckLabelNodeDataEditor key={data.data.type} {...data} />;
     default:

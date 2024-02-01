@@ -1,10 +1,6 @@
-import { css } from "@emotion/react";
 import FlowZone from "./components/flow-zone";
 import Sidebar from "./components/sidebar";
 import Header from "./components/header";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { ReactFlowProvider } from "reactflow";
 import {
   Cloth,
   CustomizationData,
@@ -32,6 +28,10 @@ function App() {
       }
       case CustomizationTypes.Print: {
         cloth.customizations.print = customization;
+        break;
+      }
+      case CustomizationTypes.Logo: {
+        cloth.customizations.logo = customization;
         break;
       }
     }

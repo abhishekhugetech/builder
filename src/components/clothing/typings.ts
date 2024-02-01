@@ -2,6 +2,7 @@ export enum CustomizationTypes {
   Color = "Color",
   Print = "Print",
   NeckLabel = "NeckLabel",
+  Logo = "Logo",
 }
 
 export enum EventName {
@@ -45,6 +46,13 @@ export interface ClothPrint {
   file: CustomizationFile;
   PrintSize: number;
   Placement: ClothPrintPlacement;
+}
+
+export interface LogoCustomization {
+  type: CustomizationTypes;
+  file: CustomizationFile;
+  Placement: ClothPrintPlacement;
+  PrintSize: number;
 }
 
 export interface PrintCustomization {
@@ -253,16 +261,27 @@ export function getDefaultNeckLabelCustomization() {
   } as NeckLabelCustomization;
 }
 
+export function getDefaultLogoCustomization() {
+  return {
+    type: CustomizationTypes.Logo,
+    file: null,
+    Placement: null,
+    PrintSize: null,
+  } as LogoCustomization;
+}
+
 export interface ClothCutomization {
   color: ColorCustomization;
   print: PrintCustomization;
   neckLable: NeckLabelCustomization;
+  logo: LogoCustomization;
 }
 
 export type CustomizationData =
   | ColorCustomization
   | PrintCustomization
-  | NeckLabelCustomization;
+  | NeckLabelCustomization
+  | LogoCustomization;
 
 export function getFile(data: CustomizationData, isFront: boolean) {
   let currentFile: CustomizationFile = null;
@@ -279,6 +298,11 @@ export function getFile(data: CustomizationData, isFront: boolean) {
     case CustomizationTypes.NeckLabel: {
       const a = data as NeckLabelCustomization;
       currentFile = a.label?.file;
+      break;
+    }
+    case CustomizationTypes.Logo: {
+      const a = data as LogoCustomization;
+      currentFile = a.file;
       break;
     }
   }
@@ -421,6 +445,9 @@ export function getClothCustomization(type: CustomizationTypes, cloth: Cloth) {
     case CustomizationTypes.Print: {
       return cloth.customizations.print;
     }
+    case CustomizationTypes.Logo: {
+      return cloth.customizations.logo;
+    }
   }
   return null;
 }
@@ -449,6 +476,7 @@ export function getDefaultCloth() {
       color: getDefaultColorCustomization(),
       print: getDefaultPrintCustomization(),
       neckLable: getDefaultNeckLabelCustomization(),
+      logo: getDefaultLogoCustomization(),
     } as ClothCutomization,
   } as Cloth;
 }
