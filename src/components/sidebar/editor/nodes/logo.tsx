@@ -130,7 +130,7 @@ const LogoNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                       value={logoCustomization.PrintSize}
                       min={1}
                       max={100}
-                      color="warning"
+                      color="primary"
                       step={1}
                       valueLabelDisplay="auto"
                       onChange={handlePlacementSizeChange}

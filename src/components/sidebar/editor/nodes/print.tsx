@@ -229,7 +229,7 @@ const PrintNodeDataEditor: FC<CustomizationEditorProps> = (props) => {
                       }
                       min={1}
                       max={100}
-                      color="warning"
+                      color="primary"
                       step={1}
                       valueLabelDisplay="auto"
                       onChange={handlePlacementSizeChange}
