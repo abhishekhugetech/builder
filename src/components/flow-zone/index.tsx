@@ -64,12 +64,28 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   };
 
   // logoBorderUpdated makes the logo border hidden/visible
-  const logoBorderUpdated = (toShow) => {
+  const logoCustomizationSelected = (toShow) => {
     const rect = logoBorderRef.current;
     if (toShow) {
       rect.style.display = `block`;
     } else {
       rect.style.display = `none`;
+    }
+
+    const svg = svgRef.current;
+    if (toShow && svg) {
+      const translateY =
+        0.05 *
+        zoneSVGContainer.current.parentElement.parentElement.clientHeight;
+
+      // Apply scale and translation transformation
+      svg.classList.remove("duration-500");
+      svg.classList.add("duration-700");
+      svg.style.transform = `scale(3) translate(0px, ${translateY}px)`;
+    } else {
+      svg.classList.remove("duration-700");
+      svg.classList.add("duration-500");
+      svg.style.transform = `none`;
     }
   };
 
@@ -86,8 +102,13 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         }, 100);
         break;
       }
+      case CustomizationTypes.Logo: {
+        logoCustomizationSelected(true);
+        break;
+      }
       case CustomizationTypes.Print: {
         printBorderRef.current.style.display = `block`;
+        break;
       }
     }
   };
@@ -116,7 +137,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
         break;
       }
       case CustomizationTypes.Logo: {
-        logoBorderUpdated(true);
+        logoCustomizationSelected(true);
         break;
       }
     }
@@ -131,7 +152,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
   const onCustomizationRemoved = () => {
     setFrontSelected(true);
     printBorderUpdated(false);
-    logoBorderUpdated(false);
+    logoCustomizationSelected(false);
     neckLableUpdated(false);
     customization.current = null;
     // Reset zoom for clothing zone
