@@ -245,7 +245,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             height="100%"
           ></image>
           {/* Default neck label (TODO: Make it dynamic based on size) */}
-          {isFronSelected ? (
+          {isFronSelected && cloth.customizations.neckLable?.label != null ? (
             <image
               href={neckLableImage}
               x={neckLableSizeImageConfig.x}
@@ -257,7 +257,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             <image></image>
           )}
           {/* Neck Lable */}
-          {isFronSelected ? (
+          {isFronSelected && cloth.customizations.neckLable?.label != null ? (
             <image
               href={cloth.customizations.neckLable.label?.file.url}
               x={neckPrintSizeImageConfig.x}
@@ -269,7 +269,7 @@ const FlowZone: FC<FlowZoneProps> = ({ cloth }) => {
             <image></image>
           )}
           {/* Logo */}
-          {isFronSelected && cloth.customizations.logo?.file?.url != null ? (
+          {isFronSelected && cloth.customizations.logo?.file != null ? (
             <image
               href={cloth.customizations.logo?.file.url}
               x={logoImageConfig.x}

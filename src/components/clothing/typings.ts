@@ -524,7 +524,7 @@ export function getDefaultCloth() {
     customizations: {
       color: getDefaultColorCustomization(),
       print: getDefaultPrintCustomization(),
-      neckLable: getDefaultNeckLabelCustomization(),
+      neckLable: null,
       logo: getDefaultLogoCustomization(),
     } as ClothCutomization,
   } as Cloth;

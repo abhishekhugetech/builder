@@ -86,7 +86,7 @@ const Sidebar: FC<SidebarProps> = ({
   });
 
   return (
-    <div className="panel_7tbke_2 customizer-side-panel flex w-full flex-col border-t border-neutral-200 bg-white md:w-96 md:flex-initial md:overflow-hidden md:border-l md:border-t-0 md:border-neutral-300 !h-auto transition-all duration-300 -translate-x-0 md:translate-x-0 md:opacity-100">
+    <div className="_panel_7tbke_2 customizer-side-panel flex w-full flex-col border-t border-neutral-200 bg-white md:w-96 md:flex-initial md:overflow-hidden md:border-l md:border-t-0 md:border-neutral-300 !h-auto transition-all duration-300 -translate-x-0 md:translate-x-0 md:opacity-100">
       {/* Top Customization Title */}
       <div className="border-b border-neutral-300 px-6 py-5 md:p-8 hidden md:block">
         <div className="flex items-center md:mb-4">
