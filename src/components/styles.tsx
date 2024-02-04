@@ -360,7 +360,7 @@ export const Styles = () => (
       .fixed {
         position: fixed;
       }
-      .\!absolute {
+      .\\!absolute {
         position: absolute !important;
       }
       .absolute {
@@ -419,7 +419,7 @@ export const Styles = () => (
       .z-50 {
         z-index: 50;
       }
-      .z-\[400\] {
+      .z-\\[400\\] {
         z-index: 400;
       }
       .col-start-1 {
@@ -472,7 +472,7 @@ export const Styles = () => (
       .ml-1 {
         margin-left: 0.25rem;
       }
-      .ml-1\.5 {
+      .ml-1\\.5 {
         margin-left: 0.375rem;
       }
       .ml-2 {
@@ -529,13 +529,13 @@ export const Styles = () => (
       .hidden {
         display: none;
       }
-      .\!h-auto {
+      .\\!h-auto {
         height: auto !important;
       }
       .h-0 {
         height: 0;
       }
-      .h-0\.5 {
+      .h-0\\.5 {
         height: 0.125rem;
       }
       .h-10 {
@@ -577,13 +577,13 @@ export const Styles = () => (
       .max-h-full {
         max-height: 100%;
       }
-      .min-h-\[56px\] {
+      .min-h-\\[56px\\] {
         min-height: 56px;
       }
       .min-h-screen {
         min-height: 100vh;
       }
-      .w-1\/2 {
+      .w-1\\/2 {
         width: 50%;
       }
       .w-10 {
@@ -607,13 +607,13 @@ export const Styles = () => (
       .w-full {
         width: 100%;
       }
-      .min-w-\[180px\] {
+      .min-w-\\[180px\\] {
         min-width: 180px;
       }
-      .min-w-\[200px\] {
+      .min-w-\\[200px\\] {
         min-width: 200px;
       }
-      .min-w-\[80px\] {
+      .min-w-\\[80px\\] {
         min-width: 80px;
       }
       .max-w-4xl {
@@ -652,7 +652,7 @@ export const Styles = () => (
           skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
           scaleY(var(--tw-scale-y));
       }
-      .-translate-y-1\/2 {
+      .-translate-y-1\\/2 {
         --tw-translate-y: -50%;
         transform: translate(var(--tw-translate-x), -50%)
           rotate(var(--tw-rotate)) skew(var(--tw-skew-x))
@@ -694,7 +694,7 @@ export const Styles = () => (
           skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
           scaleY(var(--tw-scale-y));
       }
-      .translate-y-1\/2 {
+      .translate-y-1\\/2 {
         --tw-translate-y: 50%;
         transform: translate(var(--tw-translate-x), 50%)
           rotate(var(--tw-rotate)) skew(var(--tw-skew-x))
@@ -953,7 +953,7 @@ export const Styles = () => (
         background-color: #fff;
         background-color: rgb(255 255 255 / var(--tw-bg-opacity));
       }
-      .bg-white\/75 {
+      .bg-white\\/75 {
         background-color: #ffffffbf;
       }
       .bg-zinc-100 {
@@ -1078,10 +1078,10 @@ export const Styles = () => (
         font-size: 1.875rem;
         line-height: 2.25rem;
       }
-      .text-\[10px\] {
+      .text-\\[10px\\] {
         font-size: 10px;
       }
-      .text-\[32px\] {
+      .text-\\[32px\\] {
         font-size: 32px;
       }
       .text-base {
@@ -1263,79 +1263,79 @@ export const Styles = () => (
       html {
         overflow-y: scroll;
       }
-      .placeholder\:text-neutral-500::-moz-placeholder {
+      .placeholder\\:text-neutral-500::-moz-placeholder {
         --tw-text-opacity: 1;
         color: #737373;
         color: rgb(115 115 115 / var(--tw-text-opacity));
       }
-      .placeholder\:text-neutral-500::placeholder {
+      .placeholder\\:text-neutral-500::placeholder {
         --tw-text-opacity: 1;
         color: #737373;
         color: rgb(115 115 115 / var(--tw-text-opacity));
       }
-      .backdrop\:bg-black\/50::backdrop {
+      .backdrop\\:bg-black\\/50::backdrop {
         background-color: #00000080;
       }
-      .hover\:bg-black:hover {
+      .hover\\:bg-black:hover {
         --tw-bg-opacity: 1;
         background-color: #000;
         background-color: rgb(0 0 0 / var(--tw-bg-opacity));
       }
-      .hover\:bg-neutral-100:hover {
+      .hover\\:bg-neutral-100:hover {
         --tw-bg-opacity: 1;
         background-color: #f5f5f5;
         background-color: rgb(245 245 245 / var(--tw-bg-opacity));
       }
-      .hover\:bg-neutral-200:hover {
+      .hover\\:bg-neutral-200:hover {
         --tw-bg-opacity: 1;
         background-color: #e5e5e5;
         background-color: rgb(229 229 229 / var(--tw-bg-opacity));
       }
-      .hover\:bg-stone-300:hover {
+      .hover\\:bg-stone-300:hover {
         --tw-bg-opacity: 1;
         background-color: #d6d3d1;
         background-color: rgb(214 211 209 / var(--tw-bg-opacity));
       }
-      .hover\:bg-stone-700:hover {
+      .hover\\:bg-stone-700:hover {
         --tw-bg-opacity: 1;
         background-color: #44403c;
         background-color: rgb(68 64 60 / var(--tw-bg-opacity));
       }
-      .hover\:bg-zinc-200:hover {
+      .hover\\:bg-zinc-200:hover {
         --tw-bg-opacity: 1;
         background-color: #e4e4e7;
         background-color: rgb(228 228 231 / var(--tw-bg-opacity));
       }
-      .hover\:bg-opacity-80:hover {
+      .hover\\:bg-opacity-80:hover {
         --tw-bg-opacity: 0.8;
       }
-      .hover\:text-black:hover {
+      .hover\\:text-black:hover {
         --tw-text-opacity: 1;
         color: #000;
         color: rgb(0 0 0 / var(--tw-text-opacity));
       }
-      .hover\:text-white:hover {
+      .hover\\:text-white:hover {
         --tw-text-opacity: 1;
         color: #fff;
         color: rgb(255 255 255 / var(--tw-text-opacity));
       }
-      .hover\:underline:hover {
+      .hover\\:underline:hover {
         text-decoration-line: underline;
       }
-      .focus\:outline-none:focus {
+      .focus\\:outline-none:focus {
         outline: 2px solid transparent;
         outline-offset: 2px;
       }
-      .disabled\:bg-white:disabled {
+      .disabled\\:bg-white:disabled {
         --tw-bg-opacity: 1;
         background-color: #fff;
         background-color: rgb(255 255 255 / var(--tw-bg-opacity));
       }
       @media (min-width: 640px) {
-        .sm\:\!flex {
+        .sm\\: \\!flex {
           display: flex !important;
         }
-        .sm\:-translate-x-2 {
+        .sm\\:-translate-x-2 {
           --tw-translate-x: -0.5rem;
           transform: translate(-0.5rem, var(--tw-translate-y))
             rotate(var(--tw-rotate)) skew(var(--tw-skew-x))
@@ -1346,7 +1346,7 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .sm\:translate-x-0 {
+        .sm\\:translate-x-0 {
           --tw-translate-x: 0px;
           transform: translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
             skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
@@ -1356,7 +1356,7 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .sm\:translate-y-0 {
+        .sm\\:translate-y-0 {
           --tw-translate-y: 0px;
           transform: translate(var(--tw-translate-x)) rotate(var(--tw-rotate))
             skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
@@ -1366,70 +1366,70 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .sm\:text-5xl {
+        .sm\\:text-5xl {
           font-size: 3rem;
           line-height: 1;
         }
       }
       @media (min-width: 768px) {
-        .md\:static {
+        .md\\:static {
           position: static;
         }
-        .md\:sticky {
+        .md\\:sticky {
           position: sticky;
         }
-        .md\:mb-4 {
+        .md\\:mb-4 {
           margin-bottom: 1rem;
         }
-        .md\:mb-8 {
+        .md\\:mb-8 {
           margin-bottom: 2rem;
         }
-        .md\:mt-6 {
+        .md\\:mt-6 {
           margin-top: 1.5rem;
         }
-        .md\:block {
+        .md\\:block {
           display: block;
         }
-        .md\:inline {
+        .md\\:inline {
           display: inline;
         }
-        .md\:flex {
+        .md\\:flex {
           display: flex;
         }
-        .md\:hidden {
+        .md\\:hidden {
           display: none;
         }
-        .md\:\!h-full {
+        .md\\: \\!h-full {
           height: 100% !important;
         }
-        .md\:h-12 {
+        .md\\:h-12 {
           height: 3rem;
         }
-        .md\:h-20 {
+        .md\\:h-20 {
           height: 5rem;
         }
-        .md\:h-32 {
+        .md\\:h-32 {
           height: 8rem;
         }
-        .md\:h-full {
+        .md\\:h-full {
           height: 100%;
         }
-        .md\:min-h-\[600px\] {
+        .md\\:min-h-\\[600px\\] {
           min-height: 600px;
         }
-        .md\:w-96 {
+        .md\\:w-96 {
           width: 24rem;
         }
-        .md\:min-w-\[200px\] {
+        .md\\:min-w-\\[200px\\] {
           min-width: 200px;
         }
-        .md\:flex-1 {
+        .md\\:flex-1 {
           flex: 1 1 0%;
         }
-        .md\:flex-initial {
+        .md\\:flex-initial {
           flex: 0 1 auto;
         }
-        .md\:translate-x-0 {
+        .md\\:translate-x-0 {
           --tw-translate-x: 0px;
           transform: translateY(var(--tw-translate-y)) rotate(var(--tw-rotate))
             skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
@@ -1439,7 +1439,7 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .md\:translate-x-5 {
+        .md\\:translate-x-5 {
           --tw-translate-x: 1.25rem;
           transform: translate(1.25rem, var(--tw-translate-y))
             rotate(var(--tw-rotate)) skew(var(--tw-skew-x))
@@ -1450,7 +1450,7 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .md\:translate-x-full {
+        .md\\:translate-x-full {
           --tw-translate-x: 100%;
           transform: translate(100%, var(--tw-translate-y))
             rotate(var(--tw-rotate)) skew(var(--tw-skew-x))
@@ -1461,7 +1461,7 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .md\:translate-y-0 {
+        .md\\:translate-y-0 {
           --tw-translate-y: 0px;
           transform: translate(var(--tw-translate-x)) rotate(var(--tw-rotate))
             skew(var(--tw-skew-x)) skewY(var(--tw-skew-y))
@@ -1471,128 +1471,128 @@ export const Styles = () => (
             skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x))
             scaleY(var(--tw-scale-y));
         }
-        .md\:flex-row {
+        .md\\:flex-row {
           flex-direction: row;
         }
-        .md\:justify-start {
+        .md\\:justify-start {
           justify-content: flex-start;
         }
-        .md\:justify-end {
+        .md\\:justify-end {
           justify-content: flex-end;
         }
-        .md\:gap-6 {
+        .md\\:gap-6 {
           gap: 1.5rem;
         }
-        .md\:space-y-4 > :not([hidden]) ~ :not([hidden]) {
+        .md\\:space-y-4 > :not([hidden]) ~ :not([hidden]) {
           --tw-space-y-reverse: 0;
           margin-bottom: 0;
           margin-bottom: calc(1rem * var(--tw-space-y-reverse));
           margin-top: 1rem;
           margin-top: calc(1rem * (1 - var(--tw-space-y-reverse)));
         }
-        .md\:space-y-6 > :not([hidden]) ~ :not([hidden]) {
+        .md\\:space-y-6 > :not([hidden]) ~ :not([hidden]) {
           --tw-space-y-reverse: 0;
           margin-bottom: 0;
           margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
           margin-top: 1.5rem;
           margin-top: calc(1.5rem * (1 - var(--tw-space-y-reverse)));
         }
-        .md\:space-y-8 > :not([hidden]) ~ :not([hidden]) {
+        .md\\:space-y-8 > :not([hidden]) ~ :not([hidden]) {
           --tw-space-y-reverse: 0;
           margin-bottom: 0;
           margin-bottom: calc(2rem * var(--tw-space-y-reverse));
           margin-top: 2rem;
           margin-top: calc(2rem * (1 - var(--tw-space-y-reverse)));
         }
-        .md\:overflow-hidden {
+        .md\\:overflow-hidden {
           overflow: hidden;
         }
-        .md\:border-l {
+        .md\\:border-l {
           border-left-width: 1px;
         }
-        .md\:border-t-0 {
+        .md\\:border-t-0 {
           border-top-width: 0;
         }
-        .md\:border-neutral-300 {
+        .md\\:border-neutral-300 {
           --tw-border-opacity: 1;
           border-color: #d4d4d4;
           border-color: rgb(212 212 212 / var(--tw-border-opacity));
         }
-        .md\:p-6 {
+        .md\\:p-6 {
           padding: 1.5rem;
         }
-        .md\:p-8 {
+        .md\\:p-8 {
           padding: 2rem;
         }
-        .md\:px-0 {
+        .md\\:px-0 {
           padding-left: 0;
           padding-right: 0;
         }
-        .md\:px-32 {
+        .md\\:px-32 {
           padding-left: 8rem;
           padding-right: 8rem;
         }
-        .md\:px-6 {
+        .md\\:px-6 {
           padding-left: 1.5rem;
           padding-right: 1.5rem;
         }
-        .md\:py-14 {
+        .md\\:py-14 {
           padding-bottom: 3.5rem;
           padding-top: 3.5rem;
         }
-        .md\:py-6 {
+        .md\\:py-6 {
           padding-bottom: 1.5rem;
           padding-top: 1.5rem;
         }
-        .md\:pb-32 {
+        .md\\:pb-32 {
           padding-bottom: 8rem;
         }
-        .md\:pb-6 {
+        .md\\:pb-6 {
           padding-bottom: 1.5rem;
         }
-        .md\:pt-20 {
+        .md\\:pt-20 {
           padding-top: 5rem;
         }
-        .md\:text-2xl {
+        .md\\:text-2xl {
           font-size: 1.5rem;
           line-height: 2rem;
         }
-        .md\:text-\[32px\] {
+        .md\\:text-\\[32px\\] {
           font-size: 32px;
         }
-        .md\:text-base {
+        .md\\:text-base {
           font-size: 1rem;
           line-height: 1.5rem;
         }
-        .md\:text-lg {
+        .md\\:text-lg {
           font-size: 1.125rem;
           line-height: 1.75rem;
         }
-        .md\:text-sm {
+        .md\\:text-sm {
           font-size: 0.875rem;
           line-height: 1.25rem;
         }
-        .md\:uppercase {
+        .md\\:uppercase {
           text-transform: uppercase;
         }
-        .md\:opacity-0 {
+        .md\\:opacity-0 {
           opacity: 0;
         }
-        .md\:opacity-100 {
+        .md\\:opacity-100 {
           opacity: 1;
         }
       }
       @media (min-width: 1024px) {
-        .lg\:text-base {
+        .lg\\:text-base {
           font-size: 1rem;
           line-height: 1.5rem;
         }
       }
       @media (min-width: 1280px) {
-        .xl\:max-w-\[1600px\] {
+        .xl\\:max-w-\\[1600px\\] {
           max-width: 1600px;
         }
-        .xl\:grid-cols-2 {
+        .xl\\:grid-cols-2 {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
       }
